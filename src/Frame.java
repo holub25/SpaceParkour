@@ -13,6 +13,7 @@ public class Frame extends JFrame {
         mainPanel = new JPanel(cardLayout);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(40,40,width,height);
+        this.setTitle("Space Parkour");
         this.add(mainPanel);
         addPanels();
         cardLayout.show(mainPanel,"menu");

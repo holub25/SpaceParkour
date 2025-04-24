@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class Button extends JButton {
@@ -12,6 +13,8 @@ public class Button extends JButton {
         this.setBounds(x,y,width,height);
         this.setVisible(true);
         this.setText(text);
+        this.setFont(new Font("Space Bd BT",Font.BOLD,30));
+        this.setBackground(Color.CYAN);
         this.repaint();
         this.revalidate();
     }
