@@ -14,6 +14,7 @@ public class Menu extends JPanel {
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setBackground(Color.BLACK);
         this.setVisible(true);
+        this.setLayout(null);
         addButtonsList();
         addButtons();
         setButtons();
@@ -22,6 +23,7 @@ public class Menu extends JPanel {
     }
     public void addButtonsList(){
         buttons.put("Play",new Button("Play",100,100,200,100));
+        buttons.put("Skins",new Button("Skins",300,300,200,100));
     }
     public void addButtons(){
         for(Button button : buttons.values()){
@@ -35,7 +37,7 @@ public class Menu extends JPanel {
                     buttons.get(name).setActionList(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            System.out.println("Play");
+                            frame.getCardLayout().show(frame.getMainPanel(),"game");
                         }
                     });
                 break;

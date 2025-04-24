@@ -12,6 +12,8 @@ public class Button extends JButton {
         this.setBounds(x,y,width,height);
         this.setVisible(true);
         this.setText(text);
+        this.repaint();
+        this.revalidate();
     }
 
     public void setActionList(ActionListener actionListener){

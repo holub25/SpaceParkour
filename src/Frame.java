@@ -10,15 +10,21 @@ public class Frame extends JFrame {
 
     public Frame(){
         cardLayout = new CardLayout();
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(cardLayout);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(40,40,width,height);
+        this.add(mainPanel);
+        addPanels();
+        cardLayout.show(mainPanel,"menu");
         this.setVisible(true);
         this.setResizable(false);
-        this.add(new Menu(this));
+        this.revalidate();
+        this.repaint();
+
     }
     public void addPanels(){
-        
+        mainPanel.add("menu",new Menu(this));
+        mainPanel.add("game",new Game(this));
     }
 
     public JLabel backgr(String image){
@@ -37,5 +43,13 @@ public class Frame extends JFrame {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }
