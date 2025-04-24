@@ -52,6 +52,7 @@ public class Menu extends JPanel {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             frame.getCardLayout().show(frame.getMainPanel(),"game");
+                            frame.getMainPanel().getComponent(1).requestFocusInWindow();
                         }
                     });
                 break;

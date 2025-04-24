@@ -13,10 +13,12 @@ public class Frame extends JFrame {
         mainPanel = new JPanel(cardLayout);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setBounds(40,40,width,height);
+        this.setFocusable(true);
         this.setTitle("Space Parkour");
         this.add(mainPanel);
         addPanels();
         cardLayout.show(mainPanel,"menu");
+        mainPanel.setFocusable(true);
         this.setVisible(true);
         this.setResizable(false);
         this.revalidate();
