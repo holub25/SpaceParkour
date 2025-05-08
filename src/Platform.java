@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Platform extends JLabel {
+public class Platform extends JLabel implements Comparable<Platform> {
     private int x;
     private int y;
     private int width;
@@ -31,5 +31,10 @@ public class Platform extends JLabel {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public int compareTo(Platform p) {
+        return Integer.compare(this.y,p.y);
     }
 }

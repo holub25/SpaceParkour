@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
@@ -9,20 +11,26 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Platform platform;
     private ArrayList<Platform> platforms;
     private Timer timer;
+    private Random rd;
 
     public Game(Frame frame) {
+        rd = new Random();
         this.timer = new Timer(1,this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
-        player = new Player(300,400,45,45,18);
+        player = new Player(300,400,45,45,5);
         platform = new Platform(40,40,200,80);
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
         this.setBackground(Color.BLUE);
         this.setLayout(null);
         this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
         this.add(player);
-        addPlatforms();
+        Platform firstPlatform = new Platform(10,800,500,20);
+        platforms.add(firstPlatform);
+        this.add(firstPlatform);
         this.add(frame.backgr("images\\space.png"));
         this.repaint();
         this.revalidate();
@@ -75,10 +83,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 
     public void generatePlatform(){
-        if(platforms.isEmpty()){
-            platforms.add(new Platform(400,400,60,60));
-            platforms.add(new Platform(300,300,60,60));
-            platforms.add(new Platform(10,800,500,20));
+        if(platforms.size()<=5){
+            Platform lastPlatform = Collections.min(platforms);
+            int newPositionX = lastPlatform.getX()+(rd.nextInt(800)-400);
+            int newPositionY = lastPlatform.getY()-100;
+            Platform newPlatfrom = new Platform(newPositionX,newPositionY,180,20);
+            platforms.add(newPlatfrom);
+            this.add(newPlatfrom);
+            this.setComponentZOrder(newPlatfrom,0);
+            System.out.println("2");
         }
 
     }
@@ -114,6 +127,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }else {
             gameGravity();
         }
+
+        if(player.isStaying()){
+            generatePlatform();
+        }
+
         repaint();
     }
 
