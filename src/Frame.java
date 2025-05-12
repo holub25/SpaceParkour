@@ -23,13 +23,11 @@ public class Frame extends JFrame {
         this.setResizable(false);
         this.revalidate();
         this.repaint();
-
     }
     public void addPanels(){
         mainPanel.add("menu",new Menu(this));
         mainPanel.add("game",new Game(this));
     }
-
     public JLabel backgr(String image){
         ImageIcon background = new ImageIcon(image);
         JLabel label = new JLabel(background);
@@ -37,21 +35,17 @@ public class Frame extends JFrame {
         label.setVisible(true);
         return label;
     }
-
     @Override
     public int getWidth() {
         return width;
     }
-
     @Override
     public int getHeight() {
         return height;
     }
-
     public CardLayout getCardLayout() {
         return cardLayout;
     }
-
     public JPanel getMainPanel() {
         return mainPanel;
     }

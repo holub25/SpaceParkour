@@ -9,10 +9,11 @@ public class Player extends JLabel  {
     private int width;
     private int height;
     private int speed;
-    private Timer jumpTimer;
     private boolean isJumping = false;
     private boolean staying;
     private int jumpPower;
+    private int jumpSpeed;
+    private double gravity;
 
 
     public Player(int x,int y,int width, int height,int speed) {
@@ -21,22 +22,16 @@ public class Player extends JLabel  {
         this.width = width;
         this.height = height;
         this.speed = speed;
+        this.jumpPower = -25;
+        this.jumpSpeed = 0;
+        this.gravity = 1;
         this.setBounds(x,y,width,height);
         this.setVisible(true);
         this.setBackground(Color.RED);
         this.setOpaque(true);
         this.setFocusable(true);
-
     }
 
-    /*public void playerGravity(ArrayList<Platform> platforms){
-        boolean inf = false;
-        while (!inf){
-            for(int i = 0;i<platforms.size();i++){
-                platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()+1);
-            }
-        }
-    }*/
     public void moveLeft(ArrayList<Platform> platforms){
         boolean colision = false;
         for(int i = 0;i<platforms.size();i++){
@@ -71,23 +66,30 @@ public class Player extends JLabel  {
 
     }
     public void moveUp(){
-        if(staying == true && isJumping == false){
+        if (!isJumping && staying) {
+            jumpSpeed =  jumpPower;
             isJumping = true;
-            jumpTimer = new Timer(1000,null);
-            jumpTimer.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    isJumping = false;
-                    jumpTimer.stop();
-                }
-            });
-            jumpTimer.setRepeats(false);
-            jumpTimer.start();
+            staying = false;
         }
     }
     public void gameJump(ArrayList<Platform> platforms){
+        jumpSpeed += (int) gravity;
+        int move = jumpSpeed;
+        boolean collision = false;
         for(int i = 0;i<platforms.size();i++){
-            platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()+5);
+            Rectangle newPosition = new Rectangle(platforms.get(i).getX(),platforms.get(i).getY()-move,platforms.get(i).getWidth(),platforms.get(i).getHeight());
+            if(this.getBounds().intersects(newPosition)){
+                collision = true;
+                jumpSpeed = 0;
+                isJumping = false;
+                staying = true;
+            }
+        }
+        if(!collision){
+            for(int i = 0;i<platforms.size();i++){
+                platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()-move);
+            }
+            staying = false;
         }
     }
     public void moveDown(Platform platform){
@@ -103,26 +105,8 @@ public class Player extends JLabel  {
     public int getHeight() {
         return height;
     }
-
-
-
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
     public boolean isJumping() {
         return isJumping;
-    }
-
-    public void setJumping(boolean jumping) {
-        isJumping = jumping;
     }
 
     public boolean isStaying() {

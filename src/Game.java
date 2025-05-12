@@ -12,6 +12,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private ArrayList<Platform> platforms;
     private Timer timer;
     private Random rd;
+    private boolean isJumpPressed;
+    private boolean isLeftPressed;
+    private boolean isRightPressed;
 
     public Game(Frame frame) {
         rd = new Random();
@@ -45,20 +48,23 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_A:
-                player.moveLeft(platforms);
+                //player.moveLeft(platforms);
+                isLeftPressed = true;
                 break;
             case KeyEvent.VK_D:
-                player.moveRight(platforms);
+                //player.moveRight(platforms);
+                isRightPressed = true;
                 break;
             case KeyEvent.VK_W:
                 //player.moveUp();
+                isJumpPressed = true;
                 break;
             case KeyEvent.VK_S:
-                player.moveDown(platform);
+                //player.moveDown(platform);
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
-                break;
+
         }
         repaint();
     }
@@ -66,17 +72,24 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_A:
-                player.moveLeft(platforms);
+                //player.moveLeft(platforms);
+                isLeftPressed = false;
                 break;
+
             case KeyEvent.VK_D:
-                player.moveRight(platforms);
+                isRightPressed = false;
+                //player.moveRight(platforms);
                 break;
+
             case KeyEvent.VK_W:
-                player.moveUp();
+                isJumpPressed = false;
+                //player.moveUp();
                 break;
+
             case KeyEvent.VK_S:
                 player.moveDown(platform);
                 break;
+
         }
         repaint();
     }
@@ -86,7 +99,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if(platforms.size()<=5){
             Platform lastPlatform = Collections.min(platforms);
             int newPositionX = lastPlatform.getX()+(rd.nextInt(800)-400);
-            int newPositionY = lastPlatform.getY()-100;
+            int newPositionY = lastPlatform.getY()-300;
             Platform newPlatfrom = new Platform(newPositionX,newPositionY,180,20);
             platforms.add(newPlatfrom);
             this.add(newPlatfrom);
@@ -94,12 +107,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             System.out.println("2");
         }
 
-    }
-    public void addPlatforms(){
-        generatePlatform();
-        for(int i = 0;i<platforms.size();i++){
-            this.add(platforms.get(i));
-        }
     }
 
     public void gameGravity(){
@@ -122,10 +129,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(player.isJumping()){
+        if (isJumpPressed && !player.isJumping() && player.isStaying()) {
+            player.moveUp();
+        }
+        if(player.isJumping() || !player.isStaying()){
             player.gameJump(platforms);
         }else {
             gameGravity();
+        }
+        if (isLeftPressed) {
+            player.moveLeft(platforms);
+        } else if (isRightPressed) {
+            player.moveRight(platforms);
         }
 
         if(player.isStaying()){
