@@ -9,20 +9,24 @@ public class Player extends JLabel  {
     private int width;
     private int height;
     private int speed;
+    private int sprint;
     private boolean isJumping = false;
     private boolean staying;
     private int jumpPower;
     private int jumpSpeed;
     private double gravity;
+    private int originalSpeed;
 
 
-    public Player(int x,int y,int width, int height,int speed) {
+    public Player(int x,int y,int width, int height,int speed,int sprint,int jumpPower) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        this.jumpPower = -25;
+        this.originalSpeed = speed;
+        this.sprint = sprint;
+        this.jumpPower = jumpPower;
         this.jumpSpeed = 0;
         this.gravity = 1;
         this.setBounds(x,y,width,height);
@@ -30,6 +34,14 @@ public class Player extends JLabel  {
         this.setBackground(Color.RED);
         this.setOpaque(true);
         this.setFocusable(true);
+    }
+    public void controlSpeed(boolean pressedShift){
+        if(pressedShift){
+            speed = sprint;
+        }else {
+            speed = originalSpeed;
+        }
+
     }
 
     public void moveLeft(ArrayList<Platform> platforms){
@@ -111,6 +123,7 @@ public class Player extends JLabel  {
         return false;
 
     }
+
 
     @Override
     public int getWidth() {

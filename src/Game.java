@@ -8,21 +8,22 @@ import java.util.Random;
 public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
     private Frame frame;
-    private Platform platform;
+    //private Platform platform;
     private ArrayList<Platform> platforms;
     private Timer timer;
     private Random rd;
     private boolean isJumpPressed;
     private boolean isLeftPressed;
     private boolean isRightPressed;
+    private boolean isSpeedPressed;
 
     public Game(Frame frame) {
         rd = new Random();
         this.timer = new Timer(1,this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
-        player = new Player(300,400,45,45,5);
-        platform = new Platform(40,40,200,80);
+        player = new Player(300,400,45,45,5,10,-25);
+        //platform = new Platform(40,40,200,80);
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
         this.setBackground(Color.BLUE);
@@ -56,11 +57,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 isRightPressed = true;
                 break;
             case KeyEvent.VK_W:
-                //player.moveUp();
                 isJumpPressed = true;
                 break;
-            case KeyEvent.VK_S:
-                //player.moveDown(platform);
+            case KeyEvent.VK_SHIFT:
+                isSpeedPressed = true;
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
@@ -79,6 +79,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 break;
             case KeyEvent.VK_W:
                 isJumpPressed = false;
+                break;
+            case KeyEvent.VK_SHIFT:
+                isSpeedPressed = false;
                 break;
         }
         repaint();
@@ -119,25 +122,43 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        startJump();
+        verticalMove();
+        sprint();
+        horizonatlMove();
+        platfomrGenerating();
+        repaint();
+    }
+    public void startJump(){
         if (isJumpPressed && !player.isJumping() && player.isStaying()) {
             player.moveUp();
         }
-        if(player.isJumping() || !player.isStaying()){
-            player.gameJump(platforms);
-        }else {
-            gameGravity();
+    }
+    public void platfomrGenerating(){
+        if(player.isStaying()){
+            generatePlatform();
         }
+    }
+    public void horizonatlMove(){
         if (isLeftPressed) {
             player.moveLeft(platforms);
         } else if (isRightPressed) {
             player.moveRight(platforms);
         }
-
-        if(player.isStaying()){
-            generatePlatform();
+    }
+    public void sprint(){
+        if (isSpeedPressed) {
+            player.controlSpeed(true);
+        } else {
+            player.controlSpeed(false);
         }
-
-        repaint();
+    }
+    public void verticalMove(){
+        if(player.isJumping() || !player.isStaying()){
+            player.gameJump(platforms);
+        }else {
+            gameGravity();
+        }
     }
 
     public Timer getTimer() {
