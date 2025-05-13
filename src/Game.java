@@ -72,24 +72,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_A:
-                //player.moveLeft(platforms);
                 isLeftPressed = false;
                 break;
-
             case KeyEvent.VK_D:
                 isRightPressed = false;
-                //player.moveRight(platforms);
                 break;
-
             case KeyEvent.VK_W:
                 isJumpPressed = false;
-                //player.moveUp();
                 break;
-
-            case KeyEvent.VK_S:
-                player.moveDown(platform);
-                break;
-
         }
         repaint();
     }

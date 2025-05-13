@@ -73,6 +73,11 @@ public class Player extends JLabel  {
         }
     }
     public void gameJump(ArrayList<Platform> platforms){
+        if(headCollision(platforms)){
+            isJumping = false;
+            staying = false;
+            return;
+        }
         jumpSpeed += (int) gravity;
         int move = jumpSpeed;
         boolean collision = false;
@@ -92,7 +97,18 @@ public class Player extends JLabel  {
             staying = false;
         }
     }
-    public void moveDown(Platform platform){
+    public boolean headCollision(ArrayList<Platform> platforms){
+        Rectangle newPosition = new Rectangle(x,y + jumpSpeed,width,height);
+
+        for(int i = 0;i<platforms.size();i++){
+            if(newPosition.intersects(platforms.get(i).getBounds())){
+                if(y>platforms.get(i).getY()){
+                    jumpSpeed = 0;
+                    return true;
+                }
+            }
+        }
+        return false;
 
     }
 
