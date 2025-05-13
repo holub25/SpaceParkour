@@ -62,6 +62,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             case KeyEvent.VK_SHIFT:
                 isSpeedPressed = true;
                 break;
+            case KeyEvent.VK_SPACE:
+                isJumpPressed = true;
+                break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
 
@@ -78,6 +81,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 isRightPressed = false;
                 break;
             case KeyEvent.VK_W:
+                isJumpPressed = false;
+                break;
+            case KeyEvent.VK_SPACE:
                 isJumpPressed = false;
                 break;
             case KeyEvent.VK_SHIFT:
@@ -100,6 +106,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             System.out.println("2");
         }
 
+    }
+    public void deletePlatform(){
+        for(int i = 0;i<platforms.size();i++){
+            if(platforms.get(i).getY()>1500){
+                platforms.remove(platforms.get(i));
+            }
+        }
     }
 
     public void gameGravity(){
@@ -126,7 +139,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         verticalMove();
         sprint();
         horizonatlMove();
+        deletePlatform();
         platfomrGenerating();
+        player.diead(platforms);
         repaint();
     }
     public void startJump(){

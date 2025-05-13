@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player extends JLabel  {
     private int x;
@@ -16,6 +17,7 @@ public class Player extends JLabel  {
     private int jumpSpeed;
     private double gravity;
     private int originalSpeed;
+    //private boolean death;
 
 
     public Player(int x,int y,int width, int height,int speed,int sprint,int jumpPower) {
@@ -29,11 +31,20 @@ public class Player extends JLabel  {
         this.jumpPower = jumpPower;
         this.jumpSpeed = 0;
         this.gravity = 1;
+        //this.death = false;
         this.setBounds(x,y,width,height);
         this.setVisible(true);
         this.setBackground(Color.RED);
         this.setOpaque(true);
         this.setFocusable(true);
+    }
+    public boolean diead(ArrayList<Platform> platforms){
+        Platform lowestPlatfomr = Collections.max(platforms);
+        if((y-1000)>lowestPlatfomr.getY()){
+            System.out.println("SMRT");
+            return true;
+        }
+        return false;
     }
     public void controlSpeed(boolean pressedShift){
         if(pressedShift){
@@ -74,8 +85,6 @@ public class Player extends JLabel  {
                 platforms.get(i).setLocation((platforms.get(i).getX()-speed),platforms.get(i).getY());
             }
         }
-
-
     }
     public void moveUp(){
         if (!isJumping && staying) {
