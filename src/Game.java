@@ -153,6 +153,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if(player.diead(platforms)){
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
             timer.stop();
+
         }
     }
     public void startJump(){

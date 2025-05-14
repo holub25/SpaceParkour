@@ -29,9 +29,6 @@ public class Restart extends JPanel {
         }
         Game newGame = new Game(frame);
         frame.getMainPanel().add(newGame,"game");
-        frame.getCardLayout().show(frame.getMainPanel(),"game");
-        newGame.requestFocusInWindow();
-        newGame.getTimer().start();
     }
     public void putButtons(){
         buttons.put("restart",new Button("Restart",250,200,150,100));
@@ -51,8 +48,25 @@ public class Restart extends JPanel {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             bigRestart();
+                            frame.getCardLayout().show(frame.getMainPanel(),"game");
+                            for(Component panel:frame.getMainPanel().getComponents()){
+                                if(panel instanceof Game game){
+                                    game.requestFocusInWindow();
+                                    game.getTimer().start();
+                                }
+                            }
                         }
                     });
+                    break;
+                case "menu":
+                    buttons.get(name).addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            bigRestart();
+                            frame.getCardLayout().show(frame.getMainPanel(),"menu");
+                        }
+                    });
+                    break;
             }
         }
     }

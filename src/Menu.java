@@ -51,10 +51,12 @@ public class Menu extends JPanel {
                     buttons.get(name).setActionList(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            frame.getCardLayout().show(frame.getMainPanel(),"game");
-                            frame.getMainPanel().getComponent(1).requestFocusInWindow();
-                            if(frame.getMainPanel().getComponent(1) instanceof Game game){
-                                game.getTimer().start();
+                            for(Component panel : frame.getMainPanel().getComponents()){
+                                if(panel instanceof Game game){
+                                    frame.getCardLayout().show(frame.getMainPanel(),"game");
+                                    game.requestFocusInWindow();
+                                    game.getTimer().start();
+                                }
                             }
                         }
                     });
