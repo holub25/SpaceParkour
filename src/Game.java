@@ -8,7 +8,6 @@ import java.util.Random;
 public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
     private Frame frame;
-    //private Platform platform;
     private ArrayList<Platform> platforms;
     private Timer timer;
     private Random rd;
@@ -105,12 +104,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             this.setComponentZOrder(newPlatfrom,0);
             System.out.println("2");
         }
-
     }
     public void deletePlatform(){
+        /*for (int i = platforms.size() - 1; i >= 0; i--) {
+            if (platforms.get(i).getY() > 1500) {
+                this.remove(platforms.get(i)); // odstraní z panelu
+                platforms.remove(i);           // odstraní z listu
+            }
+        }*/
         for(int i = 0;i<platforms.size();i++){
             if(platforms.get(i).getY()>1500){
                 platforms.remove(platforms.get(i));
+                this.remove(platforms.get(i));
             }
         }
     }
@@ -141,8 +146,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         horizonatlMove();
         deletePlatform();
         platfomrGenerating();
-        player.diead(platforms);
+        deadRestart();
         repaint();
+    }
+    public void deadRestart(){
+        if(player.diead(platforms)){
+            frame.getCardLayout().show(frame.getMainPanel(),"restart");
+            timer.stop();
+        }
     }
     public void startJump(){
         if (isJumpPressed && !player.isJumping() && player.isStaying()) {
@@ -178,5 +189,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    public ArrayList<Platform> getPlatforms() {
+        return platforms;
     }
 }

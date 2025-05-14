@@ -18,11 +18,6 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setOpaque(true);
     }
 
-    public boolean colision(Rectangle rectangle){
-        return this.getBounds().intersects(rectangle);
-    }
-
-
     @Override
     public int getWidth() {
         return width;
@@ -35,6 +30,6 @@ public class Platform extends JLabel implements Comparable<Platform> {
 
     @Override
     public int compareTo(Platform p) {
-        return Integer.compare(this.y,p.y);
+        return Integer.compare(this.getY(),p.getY());
     }
 }

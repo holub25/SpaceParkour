@@ -27,6 +27,7 @@ public class Frame extends JFrame {
     public void addPanels(){
         mainPanel.add("menu",new Menu(this));
         mainPanel.add("game",new Game(this));
+        mainPanel.add("restart",new Restart(this));
     }
     public JLabel backgr(String image){
         ImageIcon background = new ImageIcon(image);

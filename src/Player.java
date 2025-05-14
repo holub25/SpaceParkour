@@ -41,7 +41,6 @@ public class Player extends JLabel  {
     public boolean diead(ArrayList<Platform> platforms){
         Platform lowestPlatfomr = Collections.max(platforms);
         if((y-1000)>lowestPlatfomr.getY()){
-            System.out.println("SMRT");
             return true;
         }
         return false;

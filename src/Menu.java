@@ -19,7 +19,7 @@ public class Menu extends JPanel {
         this.setVisible(true);
         this.setLayout(null);
         addLabelsList();
-        addButtonsList();
+        putButtons();
         setButtons();
         this.add(frame.backgr("images\\space.png"));
         this.repaint();
@@ -34,7 +34,7 @@ public class Menu extends JPanel {
             this.add(label);
         }
     }
-    public void addButtonsList(){
+    public void putButtons(){
         buttons.put("Play",new Button("Play",250,200,150,100));
         buttons.put("Skins",new Button("Skins",250,400,150,100));
         addButtons();
