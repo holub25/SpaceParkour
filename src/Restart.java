@@ -8,13 +8,16 @@ import java.util.HashMap;
 public class Restart extends JPanel {
     private Frame frame;
     private HashMap<String,Button> buttons;
+    private ArrayList<TextLabel> texts;
 
     public Restart(Frame frame) {
         this.frame = frame;
         this.buttons = new HashMap<>();
+        this.texts = new ArrayList<>();
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
         this.setLayout(null);
+        addTextsList();
         putButtons();
         setButtons();
         this.add(frame.backgr("images\\space.png"));
@@ -25,6 +28,8 @@ public class Restart extends JPanel {
         for(Component panel : frame.getMainPanel().getComponents()){
             if(panel instanceof Game){
                 frame.getMainPanel().remove(panel);
+            }else if(panel instanceof Menu menu){
+                menu.getScore().setPlayerScore(0);
             }
         }
         Game newGame = new Game(frame);
@@ -38,6 +43,15 @@ public class Restart extends JPanel {
     public void addButtons(){
         for(Button button : buttons.values()){
             this.add(button);
+        }
+    }
+    public void addTextsList(){
+        texts.add(new TextLabel("FAIL",25,30,600,100,40,Color.WHITE));
+        addTexts();
+    }
+    public void addTexts(){
+        for(TextLabel textLabel : texts){
+            this.add(textLabel);
         }
     }
     public void setButtons(){

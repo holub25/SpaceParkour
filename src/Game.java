@@ -15,14 +15,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private boolean isLeftPressed;
     private boolean isRightPressed;
     private boolean isSpeedPressed;
+    private Score score;
 
     public Game(Frame frame) {
         rd = new Random();
         this.timer = new Timer(1,this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
+        this.setScore();
         player = new Player(300,400,45,45,5,10,-25);
-        //platform = new Platform(40,40,200,80);
+        Platform firstPlatform = new Platform(10,800,500,20);
+        platforms.add(firstPlatform);
+        this.add(firstPlatform);
+        this.add(score.getLabelNowS());
+        panelSettings();
+    }
+    public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
         this.setBackground(Color.BLUE);
@@ -31,9 +39,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.add(player);
-        Platform firstPlatform = new Platform(10,800,500,20);
-        platforms.add(firstPlatform);
-        this.add(firstPlatform);
         this.add(frame.backgr("images\\space.png"));
         this.repaint();
         this.revalidate();
@@ -102,20 +107,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             platforms.add(newPlatfrom);
             this.add(newPlatfrom);
             this.setComponentZOrder(newPlatfrom,0);
-            System.out.println("2");
         }
     }
     public void deletePlatform(){
-        /*for (int i = platforms.size() - 1; i >= 0; i--) {
-            if (platforms.get(i).getY() > 1500) {
-                this.remove(platforms.get(i)); // odstraní z panelu
-                platforms.remove(i);           // odstraní z listu
-            }
-        }*/
         for(int i = 0;i<platforms.size();i++){
-            if(platforms.get(i).getY()>1500){
-                platforms.remove(platforms.get(i));
+            if(platforms.get(i).getY()>1300){
                 this.remove(platforms.get(i));
+                platforms.remove(platforms.get(i));
+                score.scoreCounter();
             }
         }
     }
@@ -150,7 +149,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         repaint();
     }
     public void deadRestart(){
-        if(player.diead(platforms)){
+        if(player.died(platforms)){
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
             timer.stop();
 
@@ -188,11 +187,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
+    public void setScore() {
+        for(Component panel : frame.getMainPanel().getComponents()){
+            if(panel instanceof Menu menu){
+                this.score = menu.getScore();
+            }
+        }
+    }
+
     public Timer getTimer() {
         return timer;
     }
 
-    public ArrayList<Platform> getPlatforms() {
-        return platforms;
-    }
 }

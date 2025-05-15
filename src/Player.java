@@ -38,7 +38,7 @@ public class Player extends JLabel  {
         this.setOpaque(true);
         this.setFocusable(true);
     }
-    public boolean diead(ArrayList<Platform> platforms){
+    public boolean died(ArrayList<Platform> platforms){
         Platform lowestPlatfomr = Collections.max(platforms);
         if((y-1000)>lowestPlatfomr.getY()){
             return true;

@@ -8,29 +8,34 @@ import java.util.HashMap;
 public class Menu extends JPanel {
     private Frame frame;
     private HashMap<String,Button> buttons;
-    private ArrayList<Label> labels;
+    private ArrayList<TextLabel> labels;
+    private Score score;
 
     public Menu(Frame frame) {
         buttons = new HashMap<>();
         labels = new ArrayList<>();
         this.frame = frame;
+        this.score = new Score();
+        addTextsList();
+        putButtons();
+        setButtons();
+        panelSettings();
+    }
+    public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setBackground(Color.BLACK);
         this.setVisible(true);
         this.setLayout(null);
-        addLabelsList();
-        putButtons();
-        setButtons();
         this.add(frame.backgr("images\\space.png"));
         this.repaint();
         this.revalidate();
     }
-    public void addLabelsList(){
-        labels.add(new Label("SPACE PARKOUR",25,30,600,100,40,Color.WHITE));
-        addLabels();
+    public void addTextsList(){
+        labels.add(new TextLabel("SPACE PARKOUR",25,30,600,100,40,Color.WHITE));
+        addTexts();
     }
-    public void addLabels(){
-        for(Label label : labels){
+    public void addTexts(){
+        for(TextLabel label : labels){
             this.add(label);
         }
     }
@@ -65,4 +70,7 @@ public class Menu extends JPanel {
         }
     }
 
+    public Score getScore() {
+        return score;
+    }
 }
