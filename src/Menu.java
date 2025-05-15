@@ -16,6 +16,7 @@ public class Menu extends JPanel {
         labels = new ArrayList<>();
         this.frame = frame;
         this.score = new Score();
+        this.add(score.getLabelBestS());
         addTextsList();
         putButtons();
         setButtons();

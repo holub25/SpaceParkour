@@ -150,6 +150,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void deadRestart(){
         if(player.died(platforms)){
+            score.setBestScore();
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
             timer.stop();
 
