@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TextLabel extends JLabel {
+    private String name;
 
-    public TextLabel(String text, int x, int y, int width, int height, int textSize, Color color) {
+    public TextLabel(String name,String text, int x, int y, int width, int height, int textSize, Color color) {
+        this.name = name;
         this.setBounds(x,y,width,height);
         this.setVisible(true);
         this.setText(text);
@@ -13,5 +15,10 @@ public class TextLabel extends JLabel {
         this.setVerticalAlignment(JLabel.CENTER);
         this.repaint();
         this.revalidate();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

@@ -32,7 +32,7 @@ public class Menu extends JPanel {
         this.revalidate();
     }
     public void addTextsList(){
-        labels.add(new TextLabel("SPACE PARKOUR",25,30,600,100,40,Color.WHITE));
+        labels.add(new TextLabel("title","SPACE PARKOUR",25,30,600,100,40,Color.WHITE));
         addTexts();
     }
     public void addTexts(){

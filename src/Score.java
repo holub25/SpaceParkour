@@ -10,8 +10,8 @@ public class Score{
     public Score() {
         this.playerScore = 0;
         this.bestScore = 0;
-        labelBestS = new TextLabel("Best score: "+bestScore,500,40,150,80,10, Color.WHITE);
-        labelNowS = new TextLabel("Score: "+playerScore,40,40,130,80,18,Color.WHITE);
+        labelBestS = new TextLabel("bestScore","Best score: "+bestScore,500,40,150,80,18, Color.WHITE);
+        labelNowS = new TextLabel("scoreNow","Score: "+playerScore,40,40,150,80,18,Color.WHITE);
     }
     public void updateScore(){
         labelNowS.setText("Score: " + playerScore);
@@ -19,11 +19,15 @@ public class Score{
     public void updateBestScore(){
         labelBestS.setText("Best score: "+bestScore);
     }
-    public void setBestScore(){
+    public boolean setBestScore(){
         if(playerScore>bestScore){
             bestScore = playerScore;
+            updateBestScore();
+            return true;
+        }else {
+            return false;
         }
-        updateBestScore();
+
     }
 
     public TextLabel getLabelBestS() {
@@ -43,7 +47,7 @@ public class Score{
         updateScore();
     }
 
-    public void setBestScore(int bestScore) {
-        this.bestScore = bestScore;
+    public int getBestScore() {
+        return bestScore;
     }
 }

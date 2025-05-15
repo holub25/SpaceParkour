@@ -25,9 +25,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.setScore();
         player = new Player(300,400,45,45,5,10,-25);
         Platform firstPlatform = new Platform(10,800,500,20);
+        this.add(score.getLabelNowS());
         platforms.add(firstPlatform);
         this.add(firstPlatform);
-        this.add(score.getLabelNowS());
         panelSettings();
     }
     public void panelSettings(){
@@ -150,7 +150,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void deadRestart(){
         if(player.died(platforms)){
-            score.setBestScore();
+            for(Component panel : frame.getMainPanel().getComponents()){
+                if(panel instanceof Restart restart){
+                    restart.record();
+                }
+            }
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
             timer.stop();
 
