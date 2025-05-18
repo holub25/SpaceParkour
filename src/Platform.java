@@ -17,17 +17,14 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setBackground(Color.GREEN);
         this.setOpaque(true);
     }
-
     @Override
     public int getWidth() {
         return width;
     }
-
     @Override
     public int getHeight() {
         return height;
     }
-
     @Override
     public int compareTo(Platform p) {
         return Integer.compare(this.getY(),p.getY());

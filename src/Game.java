@@ -22,7 +22,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.frame = frame;
         this.platforms = new ArrayList<>();
         this.setScore();
-        this.player = new Player(300,400,45,45,5,10,-25);
+        this.player = new Player(300,400,29,45,5,10,-25);
         this.generator = new Generator(score);
         Platform firstPlatform = new Platform(10,800,500,20);
         this.add(score.getLabelNowS());
@@ -158,9 +158,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void horizonatlMove(){
         if (isLeftPressed) {
-            player.moveLeft(platforms);
+            player.moveLeft(platforms,isLeftPressed);
         } else if (isRightPressed) {
-            player.moveRight(platforms);
+            player.moveRight(platforms,isRightPressed);
         }
     }
     public void sprint(){

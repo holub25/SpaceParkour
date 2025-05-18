@@ -3,7 +3,6 @@ import java.awt.*;
 
 public class TextLabel extends JLabel {
     private String name;
-
     public TextLabel(String name,String text, int x, int y, int width, int height, int textSize, Color color) {
         this.name = name;
         this.setBounds(x,y,width,height);
@@ -16,7 +15,6 @@ public class TextLabel extends JLabel {
         this.repaint();
         this.revalidate();
     }
-
     @Override
     public String getName() {
         return name;

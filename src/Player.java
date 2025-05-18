@@ -17,6 +17,7 @@ public class Player extends JLabel  {
     private int jumpSpeed;
     private double gravity;
     private int originalSpeed;
+    private PlayerSkin playerSkin;
 
     public Player(int x,int y,int width, int height,int speed,int sprint,int jumpPower) {
         this.x = x;
@@ -29,11 +30,14 @@ public class Player extends JLabel  {
         this.jumpPower = jumpPower;
         this.jumpSpeed = 0;
         this.gravity = 1;
-        //this.death = false;
+        this.setIcon(new ImageIcon("skins//skin2.png"));
+        //this.playerSkin = new PlayerSkin("skins//skin2.png");
+        labelSettings();
+    }
+    public void labelSettings(){
+        this.setOpaque(false);
         this.setBounds(x,y,width,height);
         this.setVisible(true);
-        this.setBackground(Color.RED);
-        this.setOpaque(true);
         this.setFocusable(true);
     }
     public boolean died(ArrayList<Platform> platforms){
@@ -52,7 +56,7 @@ public class Player extends JLabel  {
 
     }
 
-    public void moveLeft(ArrayList<Platform> platforms){
+    public void moveLeft(ArrayList<Platform> platforms,boolean move){
         boolean colision = false;
         for(int i = 0;i<platforms.size();i++){
             Rectangle newPosition = new Rectangle((platforms.get(i).getX()+speed),platforms.get(i).getY(),platforms.get(i).getWidth(),platforms.get(i).getHeight());
@@ -64,10 +68,11 @@ public class Player extends JLabel  {
         if(!colision){
             for (int i = 0;i<platforms.size();i++){
                 platforms.get(i).setLocation((platforms.get(i).getX()+speed),platforms.get(i).getY());
+
             }
         }
     }
-    public void moveRight(ArrayList<Platform> platforms){
+    public void moveRight(ArrayList<Platform> platforms,boolean move){
         boolean colision = false;
         for(int i = 0;i<platforms.size();i++){
             Rectangle newPosition = new Rectangle((platforms.get(i).getX()-speed),platforms.get(i).getY(),platforms.get(i).getWidth(),platforms.get(i).getHeight());
@@ -129,8 +134,6 @@ public class Player extends JLabel  {
         return false;
 
     }
-
-
     @Override
     public int getWidth() {
         return width;

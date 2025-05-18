@@ -27,9 +27,7 @@ public class Score{
         }else {
             return false;
         }
-
     }
-
     public int getPlayerScore() {
         return playerScore;
     }

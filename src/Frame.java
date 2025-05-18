@@ -1,3 +1,4 @@
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +8,7 @@ public class Frame extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private Audio mainMusic;
 
     public Frame(){
         cardLayout = new CardLayout();
@@ -16,6 +18,7 @@ public class Frame extends JFrame {
         this.setFocusable(true);
         this.setTitle("Space Parkour");
         this.add(mainPanel);
+        musicSettings();
         addPanels();
         cardLayout.show(mainPanel,"menu");
         mainPanel.setFocusable(true);
@@ -23,6 +26,11 @@ public class Frame extends JFrame {
         this.setResizable(false);
         this.revalidate();
         this.repaint();
+    }
+    public void musicSettings(){
+        this.mainMusic = new Audio("Sounds//music.wav");
+        this.mainMusic.getClip().loop(Clip.LOOP_CONTINUOUSLY);
+        this.mainMusic.setVolume(-35);
     }
     public void addPanels(){
         mainPanel.add("menu",new Menu(this));

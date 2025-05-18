@@ -15,8 +15,6 @@ public class Generator {
     public void platformGenerator(JPanel game,ArrayList<Platform> platforms){
         if(platforms.size()<=5){
             Platform lastPlatform = Collections.min(platforms);
-            //int newPositionX = lastPlatform.getX()+(rd.nextInt(960)-480);
-            //int newPositionY = lastPlatform.getY()-300;
             int newPositionY = difficultyY(lastPlatform.getY());
             int newPositionX = difficultyX(lastPlatform.getX());
             Platform newPlatfrom = new Platform(newPositionX,newPositionY,180,20);
