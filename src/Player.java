@@ -17,8 +17,6 @@ public class Player extends JLabel  {
     private int jumpSpeed;
     private double gravity;
     private int originalSpeed;
-    //private boolean death;
-
 
     public Player(int x,int y,int width, int height,int speed,int sprint,int jumpPower) {
         this.x = x;

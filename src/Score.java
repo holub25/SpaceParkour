@@ -30,6 +30,10 @@ public class Score{
 
     }
 
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
     public TextLabel getLabelBestS() {
         return labelBestS;
     }
@@ -46,7 +50,6 @@ public class Score{
         this.playerScore = playerScore;
         updateScore();
     }
-
     public int getBestScore() {
         return bestScore;
     }

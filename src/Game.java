@@ -10,7 +10,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Frame frame;
     private ArrayList<Platform> platforms;
     private Timer timer;
-    private Random rd;
+    private Generator generator;
     private boolean isJumpPressed;
     private boolean isLeftPressed;
     private boolean isRightPressed;
@@ -18,12 +18,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Score score;
 
     public Game(Frame frame) {
-        rd = new Random();
         this.timer = new Timer(1,this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
         this.setScore();
-        player = new Player(300,400,45,45,5,10,-25);
+        this.player = new Player(300,400,45,45,5,10,-25);
+        this.generator = new Generator(score);
         Platform firstPlatform = new Platform(10,800,500,20);
         this.add(score.getLabelNowS());
         platforms.add(firstPlatform);
@@ -53,11 +53,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_A:
-                //player.moveLeft(platforms);
                 isLeftPressed = true;
                 break;
             case KeyEvent.VK_D:
-                //player.moveRight(platforms);
                 isRightPressed = true;
                 break;
             case KeyEvent.VK_W:
@@ -97,21 +95,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         repaint();
     }
 
-
-    public void generatePlatform(){
-        if(platforms.size()<=5){
-            Platform lastPlatform = Collections.min(platforms);
-            int newPositionX = lastPlatform.getX()+(rd.nextInt(800)-400);
-            int newPositionY = lastPlatform.getY()-300;
-            Platform newPlatfrom = new Platform(newPositionX,newPositionY,180,20);
-            platforms.add(newPlatfrom);
-            this.add(newPlatfrom);
-            this.setComponentZOrder(newPlatfrom,0);
-        }
-    }
     public void deletePlatform(){
         for(int i = 0;i<platforms.size();i++){
-            if(platforms.get(i).getY()>1300){
+            if(platforms.get(i).getY()>1000){
                 this.remove(platforms.get(i));
                 platforms.remove(platforms.get(i));
                 score.scoreCounter();
@@ -167,7 +153,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void platfomrGenerating(){
         if(player.isStaying()){
-            generatePlatform();
+            generator.platformGenerator(this,platforms);
         }
     }
     public void horizonatlMove(){
