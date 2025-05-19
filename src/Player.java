@@ -31,7 +31,6 @@ public class Player extends JLabel  {
         this.jumpSpeed = 0;
         this.gravity = 1;
         playerSkin = new PlayerSkin("skin1","skins//skin1.png");
-        //this.setIcon(new ImageIcon("skins//skin1.png"));
         labelSettings();
     }
     public void changeIcon(boolean left, boolean right){
@@ -65,7 +64,7 @@ public class Player extends JLabel  {
 
     }
 
-    public void moveLeft(ArrayList<Platform> platforms,boolean move){
+    public void moveLeft(ArrayList<Platform> platforms,CoinGenerator coinGenerator){
         boolean colision = false;
         for(int i = 0;i<platforms.size();i++){
             Rectangle newPosition = new Rectangle((platforms.get(i).getX()+speed),platforms.get(i).getY(),platforms.get(i).getWidth(),platforms.get(i).getHeight());
@@ -77,11 +76,14 @@ public class Player extends JLabel  {
         if(!colision){
             for (int i = 0;i<platforms.size();i++){
                 platforms.get(i).setLocation((platforms.get(i).getX()+speed),platforms.get(i).getY());
-
+            }
+            for(int i = 0;i<coinGenerator.getCoins().size();i++){
+                Coin coin = coinGenerator.getCoins().get(i);
+                coin.setLocation(coin.getX()+speed,coin.getY());
             }
         }
     }
-    public void moveRight(ArrayList<Platform> platforms,boolean move){
+    public void moveRight(ArrayList<Platform> platforms,CoinGenerator coinGenerator){
         boolean colision = false;
         for(int i = 0;i<platforms.size();i++){
             Rectangle newPosition = new Rectangle((platforms.get(i).getX()-speed),platforms.get(i).getY(),platforms.get(i).getWidth(),platforms.get(i).getHeight());
@@ -95,6 +97,10 @@ public class Player extends JLabel  {
             for(int i = 0;i<platforms.size();i++){
                 platforms.get(i).setLocation((platforms.get(i).getX()-speed),platforms.get(i).getY());
             }
+            for(int i = 0;i<coinGenerator.getCoins().size();i++){
+                Coin coin = coinGenerator.getCoins().get(i);
+                coin.setLocation(coin.getX()-speed,coin.getY());
+            }
         }
     }
     public void moveUp(){
@@ -104,7 +110,7 @@ public class Player extends JLabel  {
             staying = false;
         }
     }
-    public void gameJump(ArrayList<Platform> platforms){
+    public void gameJump(ArrayList<Platform> platforms,CoinGenerator coinGenerator){
         if(headCollision(platforms)){
             isJumping = false;
             staying = false;
@@ -125,6 +131,10 @@ public class Player extends JLabel  {
         if(!collision){
             for(int i = 0;i<platforms.size();i++){
                 platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()-move);
+            }
+            for(int i = 0;i<coinGenerator.getCoins().size();i++){
+                Coin coin = coinGenerator.getCoins().get(i);
+                coin.setLocation(coin.getX(),coin.getY()-move);
             }
             staying = false;
         }

@@ -16,6 +16,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private boolean isRightPressed;
     private boolean isSpeedPressed;
     private Score score;
+    private CoinGenerator coinGenerator;
 
     public Game(Frame frame) {
         this.timer = new Timer(1,this);
@@ -24,6 +25,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
         this.generator = new Generator(score);
+        this.coinGenerator = new CoinGenerator(this,30);
         Platform firstPlatform = new Platform(10,800,500,20);
         this.add(score.getLabelNowS());
         platforms.add(firstPlatform);
@@ -98,6 +100,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void deletePlatform(){
         for(int i = 0;i<platforms.size();i++){
             if(platforms.get(i).getY()>1000){
+                addCoins();
                 this.remove(platforms.get(i));
                 platforms.remove(platforms.get(i));
                 score.scoreCounter();
@@ -120,6 +123,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()-5);
                 player.setStaying(false);
             }
+            for(int i = 0;i<coinGenerator.getCoins().size();i++){
+                Coin coin = coinGenerator.getCoins().get(i);
+                coin.setLocation(coin.getX(),coin.getY()-5);
+            }
         }
     }
 
@@ -130,6 +137,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         sprint();
         horizonatlMove();
         player.changeIcon(isLeftPressed,isRightPressed);
+
         deletePlatform();
         platfomrGenerating();
         deadRestart();
@@ -159,9 +167,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void horizonatlMove(){
         if (isLeftPressed) {
-            player.moveLeft(platforms,isLeftPressed);
+            player.moveLeft(platforms,coinGenerator);
         } else if (isRightPressed) {
-            player.moveRight(platforms,isRightPressed);
+            player.moveRight(platforms,coinGenerator);
         }
     }
     public void sprint(){
@@ -173,9 +181,17 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
     public void verticalMove(){
         if(player.isJumping() || !player.isStaying()){
-            player.gameJump(platforms);
+            player.gameJump(platforms,coinGenerator);
         }else {
             gameGravity();
+        }
+    }
+    public void addCoins(){
+        coinGenerator.generator(30,30);
+        for(int i = 0;i<coinGenerator.getCoins().size();i++){
+            Coin coin = coinGenerator.getCoins().get(i);
+            this.add(coin);
+            this.setComponentZOrder(coin,0);
         }
     }
 
@@ -185,6 +201,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 this.score = menu.getScore();
             }
         }
+    }
+
+    public ArrayList<Platform> getPlatforms() {
+        return platforms;
     }
 
     public Timer getTimer() {
