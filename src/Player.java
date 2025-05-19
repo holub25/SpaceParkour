@@ -30,9 +30,18 @@ public class Player extends JLabel  {
         this.jumpPower = jumpPower;
         this.jumpSpeed = 0;
         this.gravity = 1;
-        this.setIcon(new ImageIcon("skins//skin2.png"));
-        //this.playerSkin = new PlayerSkin("skins//skin2.png");
+        playerSkin = new PlayerSkin("skin1","skins//skin1.png");
+        //this.setIcon(new ImageIcon("skins//skin1.png"));
         labelSettings();
+    }
+    public void changeIcon(boolean left, boolean right){
+        if(left){
+            this.setIcon(playerSkin.getLeftSkin(left));
+        } else if (right) {
+            this.setIcon(playerSkin.getRightSkin(right));
+        }else {
+            this.setIcon(playerSkin.getMainSkin());
+        }
     }
     public void labelSettings(){
         this.setOpaque(false);

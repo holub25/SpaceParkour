@@ -129,6 +129,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         verticalMove();
         sprint();
         horizonatlMove();
+        player.changeIcon(isLeftPressed,isRightPressed);
         deletePlatform();
         platfomrGenerating();
         deadRestart();
