@@ -13,6 +13,12 @@ public class Coin extends JLabel {
         this.width = width;
         labelSettings();
     }
+    public void moveRight(int speed){
+        this.setLocation(getX()-speed,getY());
+    }
+    public void moveLeft(int speed){
+        this.setLocation(getX()+speed,getY());
+    }
     public void labelSettings(){
         this.setBounds(x,y,width,height);
         this.setVisible(true);

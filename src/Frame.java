@@ -10,6 +10,7 @@ public class Frame extends JFrame {
     private JPanel mainPanel;
     private Audio mainMusic;
 
+
     public Frame(){
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);

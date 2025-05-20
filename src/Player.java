@@ -18,6 +18,7 @@ public class Player extends JLabel  {
     private double gravity;
     private int originalSpeed;
     private PlayerSkin playerSkin;
+    private CoinCounter coinCounter;
 
     public Player(int x,int y,int width, int height,int speed,int sprint,int jumpPower) {
         this.x = x;
@@ -30,8 +31,19 @@ public class Player extends JLabel  {
         this.jumpPower = jumpPower;
         this.jumpSpeed = 0;
         this.gravity = 1;
+        this.coinCounter = new CoinCounter(0,10,10,100,30,20);
         playerSkin = new PlayerSkin("skin1","skins//skin1.png");
         labelSettings();
+    }
+    public void playerGetCoin(Game game){
+        ArrayList<Coin> coins = game.getCoinGenerator().getCoins();
+        for(int i = 0;i<coins.size();i++){
+            if(this.getBounds().intersects(coins.get(i).getBounds())){
+                game.remove(coins.get(i));
+                coins.remove(coins.get(i));
+                coinCounter.getOneCoin();
+            }
+        }
     }
     public void changeIcon(boolean left, boolean right){
         if(left){
@@ -75,11 +87,11 @@ public class Player extends JLabel  {
         }
         if(!colision){
             for (int i = 0;i<platforms.size();i++){
-                platforms.get(i).setLocation((platforms.get(i).getX()+speed),platforms.get(i).getY());
+                platforms.get(i).moveLeft(speed);
             }
             for(int i = 0;i<coinGenerator.getCoins().size();i++){
                 Coin coin = coinGenerator.getCoins().get(i);
-                coin.setLocation(coin.getX()+speed,coin.getY());
+                coin.moveLeft(speed);
             }
         }
     }
@@ -95,11 +107,11 @@ public class Player extends JLabel  {
         }
         if(!colision){
             for(int i = 0;i<platforms.size();i++){
-                platforms.get(i).setLocation((platforms.get(i).getX()-speed),platforms.get(i).getY());
+                platforms.get(i).moveRight(speed);
             }
             for(int i = 0;i<coinGenerator.getCoins().size();i++){
                 Coin coin = coinGenerator.getCoins().get(i);
-                coin.setLocation(coin.getX()-speed,coin.getY());
+                coin.moveRight(speed);
             }
         }
     }
@@ -151,8 +163,8 @@ public class Player extends JLabel  {
             }
         }
         return false;
-
     }
+
     @Override
     public int getWidth() {
         return width;
@@ -172,5 +184,9 @@ public class Player extends JLabel  {
 
     public void setStaying(boolean staying) {
         this.staying = staying;
+    }
+
+    public CoinCounter getCoinCounter() {
+        return coinCounter;
     }
 }

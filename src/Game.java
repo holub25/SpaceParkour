@@ -18,6 +18,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Score score;
     private CoinGenerator coinGenerator;
 
+
     public Game(Frame frame) {
         this.timer = new Timer(1,this);
         this.frame = frame;
@@ -28,6 +29,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.coinGenerator = new CoinGenerator(this,30);
         Platform firstPlatform = new Platform(10,800,500,20);
         this.add(score.getLabelNowS());
+        this.add(player.getCoinCounter().getCoinsLabel());
         platforms.add(firstPlatform);
         this.add(firstPlatform);
         panelSettings();
@@ -136,13 +138,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         verticalMove();
         sprint();
         horizonatlMove();
-        player.changeIcon(isLeftPressed,isRightPressed);
-
+        palyerSettings();
         deletePlatform();
         platfomrGenerating();
         deadRestart();
         repaint();
     }
+    public void palyerSettings(){
+        player.changeIcon(isLeftPressed,isRightPressed);
+        player.playerGetCoin(this);
+        player.getCoinCounter().updateText();
+    }
+
     public void deadRestart(){
         if(player.died(platforms)){
             for(Component panel : frame.getMainPanel().getComponents()){
@@ -201,6 +208,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 this.score = menu.getScore();
             }
         }
+    }
+
+    public CoinGenerator getCoinGenerator() {
+        return coinGenerator;
     }
 
     public ArrayList<Platform> getPlatforms() {

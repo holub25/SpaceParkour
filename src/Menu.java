@@ -10,6 +10,7 @@ public class Menu extends JPanel {
     private HashMap<String,Button> buttons;
     private ArrayList<TextLabel> labels;
     private Score score;
+    //private CoinCounter coinCounter;
 
     public Menu(Frame frame) {
         buttons = new HashMap<>();
@@ -17,6 +18,7 @@ public class Menu extends JPanel {
         this.frame = frame;
         this.score = new Score();
         this.add(score.getLabelBestS());
+        //this.coinCounter = new CoinCounter(0,10,10,100,30,20);
         addTextsList();
         putButtons();
         setButtons();
@@ -70,6 +72,7 @@ public class Menu extends JPanel {
             }
         }
     }
+
 
     public Score getScore() {
         return score;

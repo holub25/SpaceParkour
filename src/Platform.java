@@ -17,6 +17,12 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setBackground(Color.GREEN);
         this.setOpaque(true);
     }
+    public void moveRight(int speed){
+        this.setLocation(getX()-speed,getY());
+    }
+    public void moveLeft(int speed){
+        this.setLocation(getX()+speed,getY());
+    }
     @Override
     public int getWidth() {
         return width;
