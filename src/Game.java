@@ -10,6 +10,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Frame frame;
     private ArrayList<Platform> platforms;
     private Timer timer;
+    private GameLogic gameLogic;
     private Generator generator;
     private boolean isJumpPressed;
     private boolean isLeftPressed;
@@ -17,12 +18,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private boolean isSpeedPressed;
     private Score score;
     private CoinGenerator coinGenerator;
+    private CollisionManager collisionManager;
 
 
     public Game(Frame frame) {
         this.timer = new Timer(1,this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
+        this.gameLogic = new GameLogic(this);
+        this.collisionManager = new CollisionManager();
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
         this.generator = new Generator(score);
@@ -111,15 +115,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
 
     public void gameGravity(){
-        boolean colision = false;
-        for(int i = 0;i<platforms.size();i++){
-            Rectangle newPosition = new Rectangle(platforms.get(i).getX(),platforms.get(i).getY()-5,platforms.get(i).getWidth(),platforms.get(i).getHeight());
-            if(player.getBounds().intersects(newPosition)){
-                colision = true;
-                player.setStaying(true);
-                break;
-            }
-        }
+        boolean colision = collisionManager.isOnPlatform(player,platforms);
         if(!colision){
             for(int i = 0;i<platforms.size();i++){
                 platforms.get(i).setLocation(platforms.get(i).getX(),platforms.get(i).getY()-5);
@@ -134,15 +130,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        startJump();
-        verticalMove();
-        sprint();
-        horizonatlMove();
-        palyerSettings();
-        deletePlatform();
-        platfomrGenerating();
-        deadRestart();
-        repaint();
+        gameLogic.updateLogic();
     }
     public void palyerSettings(){
         player.changeIcon(isLeftPressed,isRightPressed);
