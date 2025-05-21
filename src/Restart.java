@@ -70,8 +70,8 @@ public class Restart extends JPanel {
     }
 
     public void putButtons() {
-        buttons.put("restart", new Button("Restart", 250, 200, 150, 100));
-        buttons.put("menu", new Button("Menu", 250, 400, 150, 100));
+        buttons.put("restart", new Button("Restart", 250, 200, 150, 100,30));
+        buttons.put("menu", new Button("Menu", 250, 400, 150, 100,30));
         addButtons();
     }
 

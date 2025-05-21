@@ -11,8 +11,6 @@ public class Menu extends JPanel {
     private ArrayList<TextLabel> labels;
     private Score score;
 
-
-
     public Menu(Frame frame) {
         buttons = new HashMap<>();
         labels = new ArrayList<>();
@@ -43,8 +41,8 @@ public class Menu extends JPanel {
         }
     }
     public void putButtons(){
-        buttons.put("Play",new Button("Play",250,200,150,100));
-        buttons.put("Shop",new Button("Shop",250,400,150,100));
+        buttons.put("Play",new Button("Play",250,200,150,100,30));
+        buttons.put("Shop",new Button("Shop",250,400,150,100,30));
         addButtons();
     }
     public void addButtons(){

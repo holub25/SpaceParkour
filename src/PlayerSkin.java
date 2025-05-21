@@ -8,6 +8,8 @@ public class PlayerSkin {
     private int frameDelay;
     private int frameCounter;
     private int frameNow;
+    private JPanel visualShop;
+    private int price;
 
     public PlayerSkin(String mainSkin,String way) {
         frameNow = 0;
@@ -16,6 +18,7 @@ public class PlayerSkin {
         this.mainSkin = new ImageIcon(way);
         moveLeftSkins = new ArrayList<>();
         moveRightSkins = new ArrayList<>();
+        visualShop = new JPanel();
         addSkinsLeft(mainSkin);
         addSkinsRight(mainSkin);
     }
