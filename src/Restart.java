@@ -105,7 +105,7 @@ public class Restart extends JPanel {
                             for (Component panel : frame.getMainPanel().getComponents()) {
                                 if (panel instanceof Game game) {
                                     game.requestFocusInWindow();
-                                    game.getTimer().start();
+                                    game.getGameLoop().start();
                                 }
                             }
                         }

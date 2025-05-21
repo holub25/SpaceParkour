@@ -31,8 +31,8 @@ public class Frame extends JFrame {
 
     public void musicSettings(){
         this.mainMusic = new Audio("Sounds//music.wav");
-        this.mainMusic.getClip().loop(Clip.LOOP_CONTINUOUSLY);
-        this.mainMusic.setVolume(-35);
+        this.mainMusic.setVolume(-15);
+        this.mainMusic.loop();
     }
     public void addPanels(){
         mainPanel.add("menu",new Menu(this));
