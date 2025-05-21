@@ -61,7 +61,7 @@ public class Menu extends JPanel {
                                 if(panel instanceof Game game){
                                     frame.getCardLayout().show(frame.getMainPanel(),"game");
                                     game.requestFocusInWindow();
-                                    game.getTimer().start();
+                                    game.getGameLoop().start();
                                 }
                             }
                         }

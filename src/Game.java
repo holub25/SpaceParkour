@@ -9,7 +9,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
     private Frame frame;
     private ArrayList<Platform> platforms;
-    private Timer timer;
+    //private Timer timer;
+    private GameLoop gameLoop;
     private GameLogic gameLogic;
     private Generator generator;
     private boolean isJumpPressed;
@@ -23,10 +24,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 
     public Game(Frame frame) {
-        this.timer = new Timer(1,this);
+        //this.timer = new Timer(16,this);
+        this.gameLogic = new GameLogic(this);
+        this.gameLoop = new GameLoop(gameLogic);
         this.frame = frame;
         this.platforms = new ArrayList<>();
-        this.gameLogic = new GameLogic(this);
         this.collisionManager = new CollisionManager();
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
@@ -78,7 +80,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
-                timer.stop();
+                gameLoop.stopRun();
                 player.getCoinCounter().updateText();
 
         }
@@ -149,7 +151,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 }
             }
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
-            timer.stop();
+            gameLoop.stopRun();
 
         }
     }
@@ -212,8 +214,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         return platforms;
     }
 
-    public Timer getTimer() {
-        return timer;
+    public GameLoop getGameLoop() {
+        return gameLoop;
     }
-
 }

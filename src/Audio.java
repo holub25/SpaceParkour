@@ -6,30 +6,61 @@ public class Audio {
 
     private AudioInputStream audio;
     private Clip clip;
+    private boolean loaded;
 
     public Audio(String file) {
+        this.loaded = false;
         loadAudio(file);
     }
     public void loadAudio(String file){
         try {
-            this.audio = AudioSystem.getAudioInputStream(new File(file));
+            File audiFile = new File(file);
+            if(!audiFile.exists()){
+                System.out.println("File do not exist");;
+                return;
+            }
+            this.audio = AudioSystem.getAudioInputStream(audiFile);
             this.clip = AudioSystem.getClip();
             clip.open(audio);
-            clip.start();
+            loaded = true;
 
         } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR1");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR2");
         }catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR3");
+        }catch (Exception e){
+            System.out.println("ERROR4");
+        }
+    }
+    public void play(){
+        if(loaded && clip != null){
+            clip.setFramePosition(0);
+            clip.start();
+        }
+    }
+    public void loop(){
+        if(loaded && clip != null){
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+    public void stop(){
+        if (loaded && clip != null && clip.isRunning()) {
+            clip.stop();
         }
     }
     public void setVolume(int volume){
-        FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue(volume);
-    }
+        if(loaded && clip != null){
+            try {
+                FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                control.setValue(volume);
+            }catch (IllegalArgumentException e){
+                System.out.println("ERROR5");
+            }
+        }
 
+    }
     public Clip getClip() {
         return clip;
     }
