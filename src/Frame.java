@@ -9,7 +9,7 @@ public class Frame extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private Audio mainMusic;
-
+    private Game game;
 
     public Frame(){
         cardLayout = new CardLayout();
@@ -28,6 +28,7 @@ public class Frame extends JFrame {
         this.revalidate();
         this.repaint();
     }
+
     public void musicSettings(){
         this.mainMusic = new Audio("Sounds//music.wav");
         this.mainMusic.getClip().loop(Clip.LOOP_CONTINUOUSLY);
@@ -35,8 +36,13 @@ public class Frame extends JFrame {
     }
     public void addPanels(){
         mainPanel.add("menu",new Menu(this));
-        mainPanel.add("game",new Game(this));
-        mainPanel.add("restart",new Restart(this));
+        game = new Game(this);
+        mainPanel.add("game", game);
+
+        Shop shop = new Shop(this);
+        mainPanel.add("shop",shop);
+        mainPanel.add("restart", new Restart(this));
+
     }
     public JLabel backgr(String image){
         ImageIcon background = new ImageIcon(image);
@@ -45,6 +51,20 @@ public class Frame extends JFrame {
         label.setVisible(true);
         return label;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
+
+    /*public Game getGame(){
+                for(Component panel : mainPanel.getComponents()){
+                    if(panel instanceof Game game){
+                        return game;
+                    }
+                }
+                return null;
+            }*/
     @Override
     public int getWidth() {
         return width;

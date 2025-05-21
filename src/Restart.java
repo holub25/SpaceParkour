@@ -10,11 +10,13 @@ public class Restart extends JPanel {
     private HashMap<String, Button> buttons;
     private ArrayList<TextLabel> texts;
     private int bestScore;
+    private int lastMoney;
 
     public Restart(Frame frame) {
         this.frame = frame;
         this.buttons = new HashMap<>();
         this.texts = new ArrayList<>();
+        this.lastMoney = 0;
         addTextsList();
         putButtons();
         setButtons();
@@ -47,8 +49,14 @@ public class Restart extends JPanel {
             }
         }
     }
+    public void saveCoins(){
+        int coinsNow = frame.getGame().getPlayer().getCoinCounter().getCoinsCount();
+        lastMoney = coinsNow;
+    }
+
 
     public void bigRestart() {
+        saveCoins();
         for (Component panel : frame.getMainPanel().getComponents()) {
             if (panel instanceof Game) {
                 frame.getMainPanel().remove(panel);
@@ -57,6 +65,7 @@ public class Restart extends JPanel {
             }
         }
         Game newGame = new Game(frame);
+        newGame.getPlayer().getCoinCounter().setCoinsCount(lastMoney);
         frame.getMainPanel().add(newGame, "game");
     }
 

@@ -21,6 +21,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private CollisionManager collisionManager;
 
 
+
     public Game(Frame frame) {
         this.timer = new Timer(1,this);
         this.frame = frame;
@@ -77,6 +78,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
+                timer.stop();
+                player.getCoinCounter().updateText();
 
         }
         repaint();
@@ -198,6 +201,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
+    public Player getPlayer() {
+        return player;
+    }
     public CoinGenerator getCoinGenerator() {
         return coinGenerator;
     }

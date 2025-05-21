@@ -10,7 +10,8 @@ public class Menu extends JPanel {
     private HashMap<String,Button> buttons;
     private ArrayList<TextLabel> labels;
     private Score score;
-    //private CoinCounter coinCounter;
+
+
 
     public Menu(Frame frame) {
         buttons = new HashMap<>();
@@ -18,7 +19,6 @@ public class Menu extends JPanel {
         this.frame = frame;
         this.score = new Score();
         this.add(score.getLabelBestS());
-        //this.coinCounter = new CoinCounter(0,10,10,100,30,20);
         addTextsList();
         putButtons();
         setButtons();
@@ -44,7 +44,7 @@ public class Menu extends JPanel {
     }
     public void putButtons(){
         buttons.put("Play",new Button("Play",250,200,150,100));
-        buttons.put("Skins",new Button("Skins",250,400,150,100));
+        buttons.put("Shop",new Button("Shop",250,400,150,100));
         addButtons();
     }
     public void addButtons(){
@@ -69,6 +69,21 @@ public class Menu extends JPanel {
                         }
                     });
                 break;
+                case "Shop":
+                    buttons.get(name).setActionList(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            for(Component panel : frame.getMainPanel().getComponents()){
+                                if(panel instanceof Shop shop){
+                                    frame.getCardLayout().show(frame.getMainPanel(),"shop");
+                                    shop.addCoinLabel();
+                                    shop.requestFocusInWindow();
+                                }
+                            }
+                        }
+                    });
+                break;
+
             }
         }
     }
