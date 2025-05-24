@@ -1,13 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class Platform extends JLabel implements Comparable<Platform> {
     private int x;
     private int y;
     private int width;
     private int height;
+    private PlatformSkins platformSkins;
+    private ImageIcon icon;
+    private Random rd;
 
     public Platform(int x, int y, int width, int height) {
+        rd = new Random();
         this.x = x;
         this.y = y;
         this.width = width;
@@ -15,7 +20,18 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setVisible(true);
         this.setBounds(x,y,width,height);
         this.setBackground(Color.GREEN);
+        this.platformSkins = new PlatformSkins(0,Type.EQUIP);
+        addBasicTexture();
+        addTexture();
         this.setOpaque(true);
+    }
+    public void addBasicTexture(){
+        platformSkins.addPlatformSkin("platformSkin1",4);
+    }
+    public void addTexture(){
+        int randomNum = rd.nextInt(platformSkins.getPlatformSkins().size());
+        icon = new ImageIcon(platformSkins.getPlatformSkins().get(randomNum));
+        this.setIcon(icon);
     }
     public void moveRight(int speed){
         this.setLocation(getX()-speed,getY());

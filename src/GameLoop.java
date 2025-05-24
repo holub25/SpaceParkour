@@ -1,14 +1,15 @@
-public class GameLoop extends Thread{
+public class GameLoop implements Runnable{
     private boolean running;
     private GameLogic gameLogic;
 
     public GameLoop(GameLogic gameLogic) {
-        this.running = true;
+        this.running = false;
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void run() {
+        running = true;
         int fps = 60;
         long frameTime = 1000 /fps;
 
@@ -30,4 +31,5 @@ public class GameLoop extends Thread{
     public void stopRun(){
         running = false;
     }
+
 }

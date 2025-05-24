@@ -51,6 +51,7 @@ public class Menu extends JPanel {
         }
     }
     public void setButtons(){
+        
         for(String name : buttons.keySet()){
             switch (name){
                 case "Play":
@@ -61,7 +62,7 @@ public class Menu extends JPanel {
                                 if(panel instanceof Game game){
                                     frame.getCardLayout().show(frame.getMainPanel(),"game");
                                     game.requestFocusInWindow();
-                                    game.getGameLoop().start();
+                                    game.startGame();
                                 }
                             }
                         }
@@ -74,7 +75,6 @@ public class Menu extends JPanel {
                             for(Component panel : frame.getMainPanel().getComponents()){
                                 if(panel instanceof Shop shop){
                                     frame.getCardLayout().show(frame.getMainPanel(),"shop");
-                                    shop.addCoinLabel();
                                     shop.requestFocusInWindow();
                                 }
                             }

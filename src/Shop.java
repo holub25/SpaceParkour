@@ -11,7 +11,11 @@ public class Shop extends JPanel implements KeyListener {
     private Frame frame;
     private HashMap<String,Button> buttons;
     private JPanel shopPanel;
+    private TextLabel coins;
     private CardLayout cardLayout;
+    private SkinPanel playerSkins;
+    private SkinPanel platformSkins;
+    private SkinPanel backgroundSkins;
 
     public Shop(Frame frame) {
         cardLayout = new CardLayout();
@@ -19,29 +23,51 @@ public class Shop extends JPanel implements KeyListener {
         this.frame = frame;
         this.buttons = new HashMap<>();
         this.add(shopPanel);
-        shopPanel.setBounds(10,100,550,600);
+        shopPanel.setBounds(35,110,580,600);
         shopPanel.setFocusable(true);
+        addCoinLabel();
         addSkinsPanel();
-        //cardLayout.show(shopPanel,"playerSkins");
         putButons();
+        addSkins();
+        addSkisOnPanel();
         setButtons();
+        buutonSet();
         panelSettings();
     }
     public void addSkinsPanel(){
-        SkinPanel playerSkins = new SkinPanel(Color.RED);
+        playerSkins = new SkinPanel(Color.RED,frame);
+        playerSkins.setLayout(null);
         playerSkins.setName("playerSkins");
         shopPanel.add("playerSkins", playerSkins);
 
-        SkinPanel platformSkins = new SkinPanel(Color.GRAY);
+        platformSkins = new SkinPanel(Color.GRAY,frame);
+        playerSkins.setLayout(null);
         platformSkins.setName("platformSkins");
         shopPanel.add("platformSkins", platformSkins);
 
-        SkinPanel backgroundSkins = new SkinPanel(Color.YELLOW);
+        backgroundSkins = new SkinPanel(Color.YELLOW,frame);
+        backgroundSkins.setLayout(null);
         backgroundSkins.setName("backgroundSkins");
         shopPanel.add("backgroundSkins", backgroundSkins);
     }
+    public void addSkisOnPanel(){
+        for(ComponentSkin playerSkin : playerSkins.getSkins()){
+            if(playerSkin instanceof PlayerSkin ps){
+                playerSkins.add(ps.addShopIcon(10,10,180,180,"skins//skin1Shop.png"));
+            }
+        }
+    }
+
+    public void addSkins(){
+        playerSkins.getSkins().add(new PlayerSkin("skin1","skins//skin1.png",0,Type.EQUIP));
+        //playerSkins.getSkins().add(new PlayerSkin("skin"))
+    }
+    public void updateCoinText(int updateCoins){
+        coins.setText("Coins: "+updateCoins);
+    }
     public void addCoinLabel(){
-        this.add(frame.getGame().getPlayer().getCoinCounter().getCoinsLabel());
+        this.coins = new TextLabel("coins","Coins: " + frame.getGame().getPlayer().getCoinCounter().getCoinsCount(),10,10,200,50,20,Color.WHITE);
+        this.add(coins);
     }
     public void addButtons(){
         for(Button button : buttons.values()){
@@ -53,6 +79,11 @@ public class Shop extends JPanel implements KeyListener {
         buttons.put("platformSkins",new Button("Platforms",220,50,200,50,20));
         buttons.put("backgroundSkins",new Button("Background",430,50,200,50,20));
         addButtons();
+    }
+    public void buutonSet(){
+        for(int i = 0;i<playerSkins.getSkins().size();i++){
+            playerSkins.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
+        }
     }
 
     public void panelSettings(){
@@ -66,6 +97,16 @@ public class Shop extends JPanel implements KeyListener {
         this.repaint();
         this.revalidate();
     }
+
+    public PlayerSkin equipPlayerSkin(){
+        for(ComponentSkin playerSkin : playerSkins.getSkins()){
+            if(playerSkin.getType() == Type.EQUIP){
+                return (PlayerSkin) playerSkin;
+            }
+        }
+        return null;
+    }
+
     public void setButtons(){
         for(String name : buttons.keySet()){
             for(Component panel : shopPanel.getComponents()){
@@ -74,6 +115,7 @@ public class Shop extends JPanel implements KeyListener {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             cardLayout.show(shopPanel,name);
+                            panel.requestFocusInWindow();
                         }
                     });
                 }

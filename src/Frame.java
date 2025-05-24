@@ -10,6 +10,7 @@ public class Frame extends JFrame {
     private JPanel mainPanel;
     private Audio mainMusic;
     private Game game;
+    private Shop shop;
 
     public Frame(){
         cardLayout = new CardLayout();
@@ -39,9 +40,11 @@ public class Frame extends JFrame {
         game = new Game(this);
         mainPanel.add("game", game);
 
-        Shop shop = new Shop(this);
+
+        shop = new Shop(this);
         mainPanel.add("shop",shop);
         mainPanel.add("restart", new Restart(this));
+
 
     }
     public JLabel backgr(String image){
@@ -56,15 +59,10 @@ public class Frame extends JFrame {
         return game;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
 
-    /*public Game getGame(){
-                for(Component panel : mainPanel.getComponents()){
-                    if(panel instanceof Game game){
-                        return game;
-                    }
-                }
-                return null;
-            }*/
     @Override
     public int getWidth() {
         return width;

@@ -49,22 +49,23 @@ public class Restart extends JPanel {
             }
         }
     }
-    public void saveCoins(){
-        int coinsNow = frame.getGame().getPlayer().getCoinCounter().getCoinsCount();
-        lastMoney = coinsNow;
+    public void saveCoins(int coins){
+        this.lastMoney = coins;
     }
 
 
     public void bigRestart() {
-        saveCoins();
         for (Component panel : frame.getMainPanel().getComponents()) {
             if (panel instanceof Game) {
                 frame.getMainPanel().remove(panel);
             } else if (panel instanceof Menu menu) {
                 menu.getScore().setPlayerScore(0);
+            }else if(panel instanceof Shop shop){
+                shop.updateCoinText(lastMoney);
             }
         }
         Game newGame = new Game(frame);
+        System.out.println("LASTMONEY: "+lastMoney);
         newGame.getPlayer().getCoinCounter().setCoinsCount(lastMoney);
         frame.getMainPanel().add(newGame, "game");
     }
@@ -105,7 +106,7 @@ public class Restart extends JPanel {
                             for (Component panel : frame.getMainPanel().getComponents()) {
                                 if (panel instanceof Game game) {
                                     game.requestFocusInWindow();
-                                    game.getGameLoop().start();
+                                    game.startGame();
                                 }
                             }
                         }
