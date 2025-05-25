@@ -13,9 +13,9 @@ public class Shop extends JPanel implements KeyListener {
     private JPanel shopPanel;
     private TextLabel coins;
     private CardLayout cardLayout;
-    private SkinPanel playerSkins;
-    private SkinPanel platformSkins;
-    private SkinPanel backgroundSkins;
+    private SkinPanel playerSkinsPan;
+    private SkinPanel platformSkinsPan;
+    private SkinPanel backgroundSkinsPan;
 
     public Shop(Frame frame) {
         cardLayout = new CardLayout();
@@ -29,38 +29,52 @@ public class Shop extends JPanel implements KeyListener {
         addSkinsPanel();
         putButons();
         addSkins();
-        addSkisOnPanel();
+        addSkisPlayerOnPanel();
         setButtons();
         buutonSet();
         panelSettings();
     }
     public void addSkinsPanel(){
-        playerSkins = new SkinPanel(Color.RED,frame);
-        playerSkins.setLayout(null);
-        playerSkins.setName("playerSkins");
-        shopPanel.add("playerSkins", playerSkins);
+        playerSkinsPan = new SkinPanel(Color.RED,frame);
+        playerSkinsPan.setLayout(null);
+        playerSkinsPan.setName("playerSkins");
+        shopPanel.add("playerSkins", playerSkinsPan);
 
-        platformSkins = new SkinPanel(Color.GRAY,frame);
-        playerSkins.setLayout(null);
-        platformSkins.setName("platformSkins");
-        shopPanel.add("platformSkins", platformSkins);
+        platformSkinsPan = new SkinPanel(Color.GRAY,frame);
+        platformSkinsPan.setLayout(null);
+        platformSkinsPan.setName("platformSkins");
+        shopPanel.add("platformSkins", platformSkinsPan);
 
-        backgroundSkins = new SkinPanel(Color.YELLOW,frame);
-        backgroundSkins.setLayout(null);
-        backgroundSkins.setName("backgroundSkins");
-        shopPanel.add("backgroundSkins", backgroundSkins);
+        backgroundSkinsPan = new SkinPanel(Color.YELLOW,frame);
+        backgroundSkinsPan.setLayout(null);
+        backgroundSkinsPan.setName("backgroundSkins");
+        shopPanel.add("backgroundSkins", backgroundSkinsPan);
     }
-    public void addSkisOnPanel(){
-        for(ComponentSkin playerSkin : playerSkins.getSkins()){
-            if(playerSkin instanceof PlayerSkin ps){
-                playerSkins.add(ps.addShopIcon(10,10,180,180,"skins//skin1Shop.png"));
+    public void addSkisPlayerOnPanel(){
+        int x = 10;
+        int y = 10;
+        int width = 180;
+        int height = 180;
+        int round = 1;
+        addSkinsOnPanel(x,y,width,height,round,playerSkinsPan,"skin","player");
+        addSkinsOnPanel(x,y,width,height,round,platformSkinsPan,"platformSkin","platforms");
+    }
+    public void addSkinsOnPanel(int x, int y, int width,int height, int round,SkinPanel panel,String name,String whichSkin){
+        for(ComponentSkin playerSkin : panel.getSkins()){
+            panel.add(playerSkin.addShopIcon(x,y,width,height,"skins//"+whichSkin+"//"+name+round+"//"+name+round+"Shop.png"));
+            round++;
+            if(round==3){
+                y = 200;
             }
+            x = x+190;
         }
     }
 
     public void addSkins(){
-        playerSkins.getSkins().add(new PlayerSkin("skin1","skins//skin1.png",0,Type.EQUIP));
-        //playerSkins.getSkins().add(new PlayerSkin("skin"))
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin1","skins//player//skin1//skin1.png",0,Type.EQUIP));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin2","skins//player//skin2//skin2.png",10,Type.EXPENSIVE));
+        platformSkinsPan.getSkins().add(new PlatformSkins(0,Type.EQUIP,"platformSkin1",4));
+        platformSkinsPan.getSkins().add(new PlatformSkins(10,Type.EXPENSIVE,"platformSkin2",4));
     }
     public void updateCoinText(int updateCoins){
         coins.setText("Coins: "+updateCoins);
@@ -81,8 +95,11 @@ public class Shop extends JPanel implements KeyListener {
         addButtons();
     }
     public void buutonSet(){
-        for(int i = 0;i<playerSkins.getSkins().size();i++){
-            playerSkins.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
+        for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
+            playerSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
+        }
+        for(int i =0;i<platformSkinsPan.getSkins().size();i++){
+            platformSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
         }
     }
 
@@ -99,7 +116,7 @@ public class Shop extends JPanel implements KeyListener {
     }
 
     public PlayerSkin equipPlayerSkin(){
-        for(ComponentSkin playerSkin : playerSkins.getSkins()){
+        for(ComponentSkin playerSkin : playerSkinsPan.getSkins()){
             if(playerSkin.getType() == Type.EQUIP){
                 return (PlayerSkin) playerSkin;
             }

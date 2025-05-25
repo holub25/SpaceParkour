@@ -22,33 +22,33 @@ public abstract class ComponentSkin {
         this.icon = new ImageIcon(image);
         setBackGround();
         shopIcon.setLayout(null);
-        buyButton = new Button("Buy",10,height-30,50,30,10);
+        buyButton = new Button("Buy",10,height-30,100,30,10);
         shopIcon.add(buyButton);
         shopIcon.add(background);
         return shopIcon;
     }
     public void typeSet(int coins){
         if(type == Type.EQUIP || type == Type.OWN){
-            System.out.println("4");
+            System.out.println("U4");
             if(type == Type.EQUIP){
-                System.out.println("5");
+                System.out.println("U5");
                 buyButton.setEnabled(false);
                 buyButton.setText("EQUIPED");
             }else if(type == Type.OWN){
-                System.out.println("6");
+                System.out.println("U6");
                 buyButton.setEnabled(true);
                 buyButton.setText("EQUIP");
             }
 
         }else {
-            System.out.println("1");
+            System.out.println("U1");
             if(price>coins){
-                System.out.println("2");
+                System.out.println("U2");
                 type = Type.EXPENSIVE;
                 buyButton.setEnabled(false);
                 buyButton.setText("BUY");
             }else if(price<=coins){
-                System.out.println("3");
+                System.out.println("U3");
                 type = Type.BUY;
                 buyButton.setEnabled(true);
                 buyButton.setText("BUY");

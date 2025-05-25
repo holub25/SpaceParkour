@@ -75,6 +75,7 @@ public class Menu extends JPanel {
                             for(Component panel : frame.getMainPanel().getComponents()){
                                 if(panel instanceof Shop shop){
                                     frame.getCardLayout().show(frame.getMainPanel(),"shop");
+                                    shop.buutonSet();
                                     shop.requestFocusInWindow();
                                 }
                             }
