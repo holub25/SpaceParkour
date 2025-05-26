@@ -170,8 +170,6 @@ public class Player extends JLabel  {
     public void setPlayerSkin(PlayerSkin playerSkin) {
         this.playerSkin = playerSkin;
     }
-
-
     @Override
     public int getWidth() {
         return width;

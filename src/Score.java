@@ -28,6 +28,11 @@ public class Score{
             return false;
         }
     }
+
+    public void setBestScore(int bestScore) {
+        this.bestScore = bestScore;
+    }
+
     public int getPlayerScore() {
         return playerScore;
     }
@@ -43,7 +48,6 @@ public class Score{
         playerScore++;
         updateScore();
     }
-
     public void setPlayerScore(int playerScore) {
         this.playerScore = playerScore;
         updateScore();

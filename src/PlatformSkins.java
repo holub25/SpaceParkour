@@ -5,13 +5,11 @@ import java.util.Random;
 
 public class PlatformSkins extends ComponentSkin{
     private ArrayList<String> platformSkins;
-    private String name;
     private int lastNum;
     private Shop shop;
-    public PlatformSkins(int price, Type type,String name,int lastNum,Shop shop) {
-        super(price, type);
+    public PlatformSkins(String name,int price, Type type,int lastNum,Shop shop) {
+        super(name,price, type);
         this.platformSkins = new ArrayList<>();
-        this.name = name;
         this.lastNum = lastNum;
         this.shop = shop;
         addPlatformSkin();
@@ -28,14 +26,9 @@ public class PlatformSkins extends ComponentSkin{
                     }
 
                     setType(Type.EQUIP);
-                    /*for (Platform p : platforms){
-                        p.setPlatformSkins(PlatformSkins.this);
-                        p.addTexture();
-                    }*/
                 }else if(getType() == Type.BUY){
                     player.getCoinCounter().setCoinsCount(player.getCoinCounter().getCoinsCount()-getPrice());
                     shop.updateCoinText(player.getCoinCounter().getCoinsCount());
-                    //game.getScore().getLabelNowS().setText("Score: "+player.getCoinCounter().getCoinsCount());
                     setType(Type.OWN);
 
                 }
@@ -48,7 +41,7 @@ public class PlatformSkins extends ComponentSkin{
     }
     public void addPlatformSkin(){
         for(int i = 1;i<lastNum;i++){
-            platformSkins.add("skins\\platforms\\"+name+"\\"+name+"-"+i+".png");
+            platformSkins.add("skins\\platforms\\"+getName()+"\\"+getName()+"-"+i+".png");
         }
     }
 

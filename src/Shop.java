@@ -77,10 +77,10 @@ public class Shop extends JPanel implements KeyListener {
     public void addSkins(){
         playerSkinsPan.getSkins().add(new PlayerSkin("skin1","skins\\player\\skin1\\skin1.png",0,Type.EQUIP,this));
         playerSkinsPan.getSkins().add(new PlayerSkin("skin2","skins\\player\\skin2\\skin2.png",5,Type.EXPENSIVE,this));
-        platformSkinsPan.getSkins().add(new PlatformSkins(0,Type.EQUIP,"platformSkin1",4,this));
-        platformSkinsPan.getSkins().add(new PlatformSkins(10,Type.EXPENSIVE,"platformSkin2",4,this));
-        backgroundSkinsPan.getSkins().add(new BackgroundSkin(0,Type.EQUIP,"backgroundSkin1",this,frame));
-        backgroundSkinsPan.getSkins().add(new BackgroundSkin(5,Type.EXPENSIVE,"backgroundSkin2",this,frame));
+        platformSkinsPan.getSkins().add(new PlatformSkins("platformSkin1",0,Type.EQUIP,4,this));
+        platformSkinsPan.getSkins().add(new PlatformSkins("platformSkin2",10,Type.EXPENSIVE,4,this));
+        backgroundSkinsPan.getSkins().add(new BackgroundSkin("backgroundSkin1",0,Type.EQUIP,this,frame));
+        backgroundSkinsPan.getSkins().add(new BackgroundSkin("backgroundSkin2",5,Type.EXPENSIVE,this,frame));
     }
     public void updateButtons(Player player){
         for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
@@ -196,6 +196,14 @@ public class Shop extends JPanel implements KeyListener {
 
     public SkinPanel getPlatformSkinsPan() {
         return platformSkinsPan;
+    }
+
+    public SkinPanel getPlayerSkinsPan() {
+        return playerSkinsPan;
+    }
+
+    public SkinPanel getBackgroundSkinsPan() {
+        return backgroundSkinsPan;
     }
 
     @Override

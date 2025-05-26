@@ -15,7 +15,7 @@ public class PlayerSkin extends ComponentSkin{
     private Player player;
 
     public PlayerSkin(String name,String way, int price, Type type,Shop shop) {
-        super(price, type);
+        super(name,price, type);
         frameNow = 0;
         frameCounter = 0;
         frameDelay = 10;
@@ -41,7 +41,6 @@ public class PlayerSkin extends ComponentSkin{
                 }else if(getType() == Type.BUY){
                     player.getCoinCounter().setCoinsCount(player.getCoinCounter().getCoinsCount()-getPrice());
                     shop.updateCoinText(player.getCoinCounter().getCoinsCount());
-                    //game.getScore().getLabelNowS().setText("Score: "+player.getCoinCounter().getCoinsCount());
                     setType(Type.OWN);
                 }
                 shop.updateButtons(player);
@@ -76,18 +75,6 @@ public class PlayerSkin extends ComponentSkin{
             frameNow = 0;
         }
         return skins.get(frameNow);
-    }
-
-    public void setMainSkin(ImageIcon mainSkin) {
-        this.mainSkin = mainSkin;
-    }
-
-    public void setMoveRightSkins(ArrayList<ImageIcon> moveRightSkins) {
-        this.moveRightSkins = moveRightSkins;
-    }
-
-    public void setMoveLeftSkins(ArrayList<ImageIcon> moveLeftSkins) {
-        this.moveLeftSkins = moveLeftSkins;
     }
 
     public ImageIcon getRightSkin(boolean moveRight){

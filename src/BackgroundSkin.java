@@ -7,10 +7,10 @@ public class BackgroundSkin extends ComponentSkin{
     private String way;
     private Shop shop;
     private Frame frame;
-    public BackgroundSkin(int price, Type type,String skin,Shop shop,Frame frame) {
-        super(price, type);
-        this.icon = new ImageIcon("skins\\background\\"+skin+"\\"+skin+".png");
-        this.way = "skins\\background\\"+skin+"\\"+skin+".png";
+    public BackgroundSkin(String name,int price, Type type,Shop shop,Frame frame) {
+        super(name,price, type);
+        this.icon = new ImageIcon("skins\\background\\"+name+"\\"+name+".png");
+        this.way = "skins\\background\\"+name+"\\"+name+".png";
         this.shop = shop;
         this.frame = frame;
     }
@@ -30,7 +30,6 @@ public class BackgroundSkin extends ComponentSkin{
                 }else if(getType() == Type.BUY){
                     player.getCoinCounter().setCoinsCount(player.getCoinCounter().getCoinsCount()-getPrice());
                     shop.updateCoinText(player.getCoinCounter().getCoinsCount());
-                    //game.getScore().getLabelNowS().setText("Score: "+player.getCoinCounter().getCoinsCount());
                     setType(Type.OWN);
                 }
                 shop.updateButtons(player);
@@ -40,7 +39,6 @@ public class BackgroundSkin extends ComponentSkin{
             }
         });
     }
-
     public String getWay() {
         return way;
     }

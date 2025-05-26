@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class Frame extends JFrame {
@@ -14,6 +16,8 @@ public class Frame extends JFrame {
     private Menu menu;
     private Restart restart;
     private Background background;
+    private Saver saver;
+    private Loader loader;
 
     public Frame(){
         cardLayout = new CardLayout();
@@ -28,10 +32,18 @@ public class Frame extends JFrame {
         addPanels();
         cardLayout.show(mainPanel,"menu");
         mainPanel.setFocusable(true);
+        loadGame();
         this.setVisible(true);
         this.setResizable(false);
         this.revalidate();
         this.repaint();
+        endFrame();
+    }
+    public void saveGame(){
+        this.saver = new Saver(menu,game.getPlayer(),shop);
+    }
+    public void loadGame(){
+        this.loader = new Loader(menu,game.getPlayer(),shop);
     }
 
     public void musicSettings(){
@@ -83,6 +95,16 @@ public class Frame extends JFrame {
         label.setBounds(0,0,width,height);
         label.setVisible(true);
         return label;
+    }
+    public void endFrame(){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("END");
+                saveGame();
+                super.windowClosing(e);
+            }
+        });
     }
 
     public Game getGame() {

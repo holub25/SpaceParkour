@@ -22,8 +22,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private CollisionManager collisionManager;
     private Background background;
 
-
-
     public Game(Frame frame) {
         this.gameLogic = new GameLogic(this);
         this.frame = frame;
@@ -50,7 +48,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
-        //this.setBackground(Color.BLUE);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setFocusable(true);
@@ -222,11 +219,4 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         return platforms;
     }
 
-    public Score getScore() {
-        return score;
-    }
-
-    public GameLoop getGameLoop() {
-        return gameLoop;
-    }
 }

@@ -4,12 +4,14 @@ import java.awt.*;
 public abstract class ComponentSkin {
     private JPanel shopIcon;
     private Button buyButton;
+    private String name;
     private int price;
     private Type type;
     private ImageIcon icon;
     private JLabel background;
 
-    public ComponentSkin(int price,Type type) {
+    public ComponentSkin(String name,int price,Type type) {
+        this.name = name;
         this.price = price;
         this.type = type;
         this.shopIcon = new JPanel();
@@ -64,6 +66,10 @@ public abstract class ComponentSkin {
         this.background.setBounds(0,0,180,180);
         this.background.setIcon(icon);
         this.background.setLayout(null);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Button getBuyButton() {
