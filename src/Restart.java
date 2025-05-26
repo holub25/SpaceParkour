@@ -11,7 +11,7 @@ public class Restart extends JPanel {
     private ArrayList<TextLabel> texts;
     private int bestScore;
     private int lastMoney;
-    private Background background;
+
     public Restart(Frame frame) {
         this.frame = frame;
         this.buttons = new HashMap<>();
@@ -25,9 +25,9 @@ public class Restart extends JPanel {
 
     public void panelSettings() {
         this.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        this.add(frame.backgr(frame.getGameBackground().getBackgroundSkin().getWay()));
         this.setVisible(true);
         this.setLayout(null);
+        this.add(frame.backgr("images\\space.png"));
         this.repaint();
         this.revalidate();
     }
@@ -49,41 +49,34 @@ public class Restart extends JPanel {
             }
         }
     }
-    public void saveCoins(int coins){
-        this.lastMoney = coins;
+    public void saveCoins(){
+        int coinsNow = frame.getGame().getPlayer().getCoinCounter().getCoinsCount();
+        lastMoney = coinsNow;
     }
 
 
     public void bigRestart() {
+        saveCoins();
         for (Component panel : frame.getMainPanel().getComponents()) {
             if (panel instanceof Game) {
                 frame.getMainPanel().remove(panel);
             } else if (panel instanceof Menu menu) {
                 menu.getScore().setPlayerScore(0);
-            }else if(panel instanceof Shop shop){
-                shop.updateCoinText(lastMoney);
             }
         }
         Game newGame = new Game(frame);
         newGame.getPlayer().getCoinCounter().setCoinsCount(lastMoney);
-        frame.setGame(newGame);
-        frame.getShop().updatePlayerReferences(newGame.getPlayer(),newGame);
-        System.out.println(newGame.getPlayer().getCoinCounter().getCoinsCount()+"PPP");
         frame.getMainPanel().add(newGame, "game");
-        frame.getShop().equipSkins(newGame);
-        frame.getShop().equipPlatformSkins(newGame);
-        frame.getShop().equipBackground(frame);
     }
 
     public void putButtons() {
-        buttons.put("restart", new Button("Restart", 250, 200, 150, 100,30,"big"));
-        buttons.put("menu", new Button("Menu", 250, 400, 150, 100,30,"big"));
+        buttons.put("restart", new Button("Restart", 250, 200, 150, 100,30));
+        buttons.put("menu", new Button("Menu", 250, 400, 150, 100,30));
         addButtons();
     }
 
     public void addButtons() {
         for (Button button : buttons.values()) {
-            button.setButtonsSkin();
             this.add(button);
         }
     }
@@ -112,7 +105,7 @@ public class Restart extends JPanel {
                             for (Component panel : frame.getMainPanel().getComponents()) {
                                 if (panel instanceof Game game) {
                                     game.requestFocusInWindow();
-                                    game.startGame();
+                                    game.getTimer().start();
                                 }
                             }
                         }

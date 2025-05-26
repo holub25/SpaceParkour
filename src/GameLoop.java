@@ -1,15 +1,26 @@
+<<<<<<< HEAD
 public class GameLoop implements Runnable{
+=======
+public class GameLoop extends Thread{
+>>>>>>> origin/master
     private boolean running;
     private GameLogic gameLogic;
 
     public GameLoop(GameLogic gameLogic) {
+<<<<<<< HEAD
         this.running = false;
+=======
+        this.running = true;
+>>>>>>> origin/master
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void run() {
+<<<<<<< HEAD
         running = true;
+=======
+>>>>>>> origin/master
         int fps = 60;
         long frameTime = 1000 /fps;
 
@@ -31,5 +42,8 @@ public class GameLoop implements Runnable{
     public void stopRun(){
         running = false;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 }
