@@ -43,7 +43,7 @@ public class Frame extends JFrame {
         this.saver = new Saver(menu,game.getPlayer(),shop);
     }
     public void loadGame(){
-        this.loader = new Loader(menu,game.getPlayer(),shop);
+        this.loader = new Loader(menu,game.getPlayer(),shop,this);
     }
 
     public void musicSettings(){
@@ -63,9 +63,9 @@ public class Frame extends JFrame {
         shop.equipBackground(this);
         restart = new Restart(this);
         mainPanel.add("restart", restart);
-        setBackground(this.getGameBackground().getBackgroundSkin().getWay());
+        setBackgrounds(this.getGameBackground().getBackgroundSkin().getWay());
     }
-    public void setBackground(String way){
+    public void setBackgrounds(String way){
         removeOldBackground(menu);
         removeOldBackground(shop);
         removeOldBackground(restart);

@@ -7,12 +7,12 @@ public class Loader {
     private FileReader fr;
     private BufferedReader br;
 
-    public Loader(Menu menu,Player player,Shop shop) {
+    public Loader(Menu menu,Player player,Shop shop,Frame frame) {
         try {
             fr = new FileReader("Saves\\dataSave");
             br = new BufferedReader(fr);
 
-            fileReading(menu,player,shop);
+            fileReading(menu,player,shop,frame);
 
             br.close();
             fr.close();
@@ -20,7 +20,7 @@ public class Loader {
             throw new RuntimeException(e);
         }
     }
-    public void fileReading(Menu menu,Player player,Shop shop) throws IOException {
+    public void fileReading(Menu menu,Player player,Shop shop,Frame frame) throws IOException {
         String line;
         while ((line = br.readLine())!=null){
             loadBestScore(line,menu);
@@ -28,6 +28,7 @@ public class Loader {
             loadPlayerSkins(line,shop);
             loadPlatformSkins(line,shop);
             loadBackgroundSkins(line,shop);
+            loadEveryBackground(line,frame);
         }
     }
     public void loadBestScore(String line,Menu menu){
@@ -81,4 +82,10 @@ public class Loader {
             }
         }
     }
+    public void loadEveryBackground(String line,Frame frame){
+        if(line.split(";")[0].equalsIgnoreCase("selectWay")){
+            frame.setBackgrounds(line.split(";")[1]);
+        }
+    }
+
 }

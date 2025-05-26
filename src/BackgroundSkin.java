@@ -26,7 +26,8 @@ public class BackgroundSkin extends ComponentSkin{
                         }
                     }
                     setType(Type.EQUIP);
-                    frame.setBackground(way);
+                    frame.setBackgrounds(way);
+                    System.out.println(way);
                 }else if(getType() == Type.BUY){
                     player.getCoinCounter().setCoinsCount(player.getCoinCounter().getCoinsCount()-getPrice());
                     shop.updateCoinText(player.getCoinCounter().getCoinsCount());

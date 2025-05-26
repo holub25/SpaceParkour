@@ -1,8 +1,9 @@
-bestScore;14
-coins;6
-skin1;OWN
-skin2;EQUIP
+bestScore;0
+coins;5
+skin1;EQUIP
+skin2;BUY
 platformSkin1;EQUIP
 platformSkin2;EXPENSIVE
 backgroundSkin1;OWN
 backgroundSkin2;EQUIP
+selectWay;skins\background\backgroundSkin2\backgroundSkin2.png

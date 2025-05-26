@@ -17,6 +17,7 @@ public class Saver {
             savePlayerSkins(shop);
             savePlatfromsSkins(shop);
             saveBackgroundSkins(shop);
+            saveSelectedBackWay(shop);
 
             bw.close();
             fw.close();
@@ -49,5 +50,16 @@ public class Saver {
             bw.write(shop.getBackgroundSkinsPan().getSkins().get(i).getName()+";"+shop.getBackgroundSkinsPan().getSkins().get(i).getType());
             bw.newLine();
         }
+    }
+    public void saveSelectedBackWay(Shop shop) throws IOException {
+        for(int i = 0;i<shop.getBackgroundSkinsPan().getSkins().size();i++){
+            if(shop.getBackgroundSkinsPan().getSkins().get(i).getType() == Type.EQUIP){
+                if(shop.getBackgroundSkinsPan().getSkins().get(i) instanceof BackgroundSkin bs){
+                    bw.write("selectWay;"+bs.getWay());
+                    bw.newLine();
+                }
+            }
+        }
+
     }
 }
