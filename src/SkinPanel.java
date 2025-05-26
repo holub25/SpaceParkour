@@ -8,14 +8,14 @@ import java.util.HashMap;
 public class SkinPanel extends JPanel implements KeyListener {
     private Frame frame;
     private ArrayList<ComponentSkin> skins;
-    public SkinPanel(Color color,Frame frame) {
-        panelSettings(color);
+    public SkinPanel(Frame frame) {
+        panelSettings();
         this.frame = frame;
         this.skins = new ArrayList<>();
     }
-    public void panelSettings(Color color){
+    public void panelSettings(){
         this.setVisible(true);
-        this.setBackground(color);
+        this.setBackground(Color.GRAY);
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();

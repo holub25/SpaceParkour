@@ -10,8 +10,8 @@ public class Score{
     public Score() {
         this.playerScore = 0;
         this.bestScore = 0;
-        labelBestS = new TextLabel("bestScore","Best score: "+bestScore,500,40,150,80,18, Color.WHITE);
-        labelNowS = new TextLabel("scoreNow","Score: "+playerScore,40,40,150,80,18,Color.WHITE);
+        labelBestS = new TextLabel("bestScore","Best score: "+bestScore,250,100,150,80,18, Color.WHITE);
+        labelNowS = new TextLabel("scoreNow","SCORE: "+playerScore,5,40,100,40,20,Color.WHITE);
     }
     public void updateScore(){
         labelNowS.setText("Score: " + playerScore);

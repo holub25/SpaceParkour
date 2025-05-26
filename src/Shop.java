@@ -32,22 +32,21 @@ public class Shop extends JPanel implements KeyListener {
         addSkisPlayerOnPanel();
         setButtons();
         updateButtons(frame.getGame().getPlayer());
-        //buutonSet();
         updatePlayerReferences(frame.getGame().getPlayer(),frame.getGame());
         panelSettings();
     }
     public void addSkinsPanel(){
-        playerSkinsPan = new SkinPanel(Color.RED,frame);
+        playerSkinsPan = new SkinPanel(frame);
         playerSkinsPan.setLayout(null);
         playerSkinsPan.setName("playerSkins");
         shopPanel.add("playerSkins", playerSkinsPan);
 
-        platformSkinsPan = new SkinPanel(Color.GRAY,frame);
+        platformSkinsPan = new SkinPanel(frame);
         platformSkinsPan.setLayout(null);
         platformSkinsPan.setName("platformSkins");
         shopPanel.add("platformSkins", platformSkinsPan);
 
-        backgroundSkinsPan = new SkinPanel(Color.YELLOW,frame);
+        backgroundSkinsPan = new SkinPanel(frame);
         backgroundSkinsPan.setLayout(null);
         backgroundSkinsPan.setName("backgroundSkins");
         shopPanel.add("backgroundSkins", backgroundSkinsPan);

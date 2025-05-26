@@ -90,7 +90,7 @@ public class Restart extends JPanel {
 
     public void addTextsList() {
         texts.add(new TextLabel("fail", "FAIL", 25, 30, 600, 100, 40, Color.WHITE));
-        texts.add(new TextLabel("record", "NEW RECORD: " + bestScore, 200, 100, 150, 80, 8, Color.YELLOW));
+        texts.add(new TextLabel("record", "NEW RECORD: " + bestScore, 250, 100, 150, 80, 18, Color.YELLOW));
         addTexts();
     }
 
