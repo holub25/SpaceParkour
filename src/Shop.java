@@ -130,15 +130,6 @@ public class Shop extends JPanel implements KeyListener {
         buttons.put("backgroundSkins",new Button("Background",430,50,200,50,20,"medium"));
         addButtons();
     }
-    /*public void buutonSet(){
-        for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
-            playerSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
-        }
-        for(int i =0;i<platformSkinsPan.getSkins().size();i++){
-            platformSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
-        }
-
-    }*/
 
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());

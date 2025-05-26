@@ -9,7 +9,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
     private Frame frame;
     private ArrayList<Platform> platforms;
-    private Timer timer;
+    private GameLoop gameLoop;
+    private Thread thread;
     private GameLogic gameLogic;
     private Generator generator;
     private boolean isJumpPressed;
@@ -19,36 +20,43 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Score score;
     private CoinGenerator coinGenerator;
     private CollisionManager collisionManager;
+    private Background background;
 
 
 
     public Game(Frame frame) {
-        this.timer = new Timer(1,this);
+        this.gameLogic = new GameLogic(this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
-        this.gameLogic = new GameLogic(this);
         this.collisionManager = new CollisionManager();
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
-        this.generator = new Generator(score);
+        this.generator = new Generator(score,frame);
         this.coinGenerator = new CoinGenerator(this,30);
-        Platform firstPlatform = new Platform(10,800,500,20);
+        this.background = frame.getGameBackground();
+        Platform firstPlatform = new Platform(225,800,180,20);
         this.add(score.getLabelNowS());
         this.add(player.getCoinCounter().getCoinsLabel());
         platforms.add(firstPlatform);
         this.add(firstPlatform);
         panelSettings();
     }
+    public void startGame(){
+        this.gameLoop = new GameLoop(gameLogic);
+        this.thread = new Thread(gameLoop);
+        thread.start();
+        System.out.println("AKTIVNI Vlakna: "+Thread.activeCount());
+    }
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
-        this.setBackground(Color.BLUE);
+        //this.setBackground(Color.BLUE);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.add(player);
-        this.add(frame.backgr("images\\space.png"));
+        this.add(frame.getGameBackground());
         this.repaint();
         this.revalidate();
     }
@@ -78,8 +86,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.getCardLayout().show(frame.getMainPanel(),"menu");
-                timer.stop();
+                gameLoop.stopRun();
                 player.getCoinCounter().updateText();
+                frame.getShop().updateCoinText(player.getCoinCounter().getCoinsCount());
 
         }
         repaint();
@@ -145,11 +154,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if(player.died(platforms)){
             for(Component panel : frame.getMainPanel().getComponents()){
                 if(panel instanceof Restart restart){
+                    restart.saveCoins(player.getCoinCounter().getCoinsCount());
                     restart.record();
                 }
             }
             frame.getCardLayout().show(frame.getMainPanel(),"restart");
-            timer.stop();
+            gameLoop.stopRun();
 
         }
     }
@@ -212,8 +222,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         return platforms;
     }
 
-    public Timer getTimer() {
-        return timer;
+    public Score getScore() {
+        return score;
     }
 
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
 }
