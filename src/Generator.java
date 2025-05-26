@@ -7,9 +7,12 @@ public class Generator {
 
     private Random rd;
     private Score score;
+    private Frame frame;
+    private PlatformSkins platformSkins;
 
-    public Generator(Score score) {
+    public Generator(Score score,Frame frame) {
         this.score = score;
+        this.frame = frame;
         this.rd = new Random();
     }
     public void platformGenerator(JPanel game,ArrayList<Platform> platforms){
@@ -17,10 +20,23 @@ public class Generator {
             Platform lastPlatform = Collections.min(platforms);
             int newPositionY = difficultyY(lastPlatform.getY());
             int newPositionX = difficultyX(lastPlatform.getX());
+            skin();
             Platform newPlatfrom = new Platform(newPositionX,newPositionY,180,20);
+            newPlatfrom.setPlatformSkins(platformSkins);
+            newPlatfrom.addTexture();
             platforms.add(newPlatfrom);
             game.add(newPlatfrom);
             game.setComponentZOrder(newPlatfrom,0);
+        }
+    }
+    public void skin(){
+        for(ComponentSkin skin : frame.getShop().getPlatformSkinsPan().getSkins()){
+            if(skin instanceof PlatformSkins platformSkins){
+                if(platformSkins.getType() == Type.EQUIP){
+                    this.platformSkins = platformSkins;
+                    System.out.println("DONE");
+                }
+            }
         }
     }
     public int difficultyY(int lastY){

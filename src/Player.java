@@ -34,7 +34,7 @@ public class Player extends JLabel  {
         this.jumpSpeed = 0;
         this.gravity = 1;
         this.coinCounter = new CoinCounter(0,10,10,100,30,20);
-        this.playerSkin = new PlayerSkin("skin1","skins//player//skin1//skin1.png",0,Type.EQUIP);
+        //this.playerSkin = new PlayerSkin("skin1","skins//player//skin1//skin1.png",0,Type.EQUIP,);
         labelSettings();
     }
     public void playerGetCoin(Game game){
@@ -167,9 +167,10 @@ public class Player extends JLabel  {
         return false;
     }
 
-    public void setFrame(Frame frame) {
-        this.frame = frame;
+    public void setPlayerSkin(PlayerSkin playerSkin) {
+        this.playerSkin = playerSkin;
     }
+
 
     @Override
     public int getWidth() {

@@ -20,19 +20,20 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private Score score;
     private CoinGenerator coinGenerator;
     private CollisionManager collisionManager;
+    private Background background;
 
 
 
     public Game(Frame frame) {
-        //this.timer = new Timer(16,this);
         this.gameLogic = new GameLogic(this);
         this.frame = frame;
         this.platforms = new ArrayList<>();
         this.collisionManager = new CollisionManager();
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
-        this.generator = new Generator(score);
+        this.generator = new Generator(score,frame);
         this.coinGenerator = new CoinGenerator(this,30);
+        this.background = frame.getGameBackground();
         Platform firstPlatform = new Platform(225,800,180,20);
         this.add(score.getLabelNowS());
         this.add(player.getCoinCounter().getCoinsLabel());
@@ -49,13 +50,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
-        this.setBackground(Color.BLUE);
+        //this.setBackground(Color.BLUE);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.add(player);
-        this.add(frame.backgr("images\\space.png"));
+        this.add(frame.getGameBackground());
         this.repaint();
         this.revalidate();
     }
@@ -221,11 +222,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         return platforms;
     }
 
-    public Thread getThread() {
-        return thread;
-    }
-
-    public GameLoop getGameLoop() {
-        return gameLoop;
+    public Score getScore() {
+        return score;
     }
 }

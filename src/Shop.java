@@ -31,7 +31,9 @@ public class Shop extends JPanel implements KeyListener {
         addSkins();
         addSkisPlayerOnPanel();
         setButtons();
-        buutonSet();
+        updateButtons(frame.getGame().getPlayer());
+        //buutonSet();
+        updatePlayerReferences(frame.getGame().getPlayer(),frame.getGame());
         panelSettings();
     }
     public void addSkinsPanel(){
@@ -58,10 +60,12 @@ public class Shop extends JPanel implements KeyListener {
         int round = 1;
         addSkinsOnPanel(x,y,width,height,round,playerSkinsPan,"skin","player");
         addSkinsOnPanel(x,y,width,height,round,platformSkinsPan,"platformSkin","platforms");
+        addSkinsOnPanel(x,y,width,height,round,backgroundSkinsPan,"backgroundSkin","background");
     }
     public void addSkinsOnPanel(int x, int y, int width,int height, int round,SkinPanel panel,String name,String whichSkin){
         for(ComponentSkin playerSkin : panel.getSkins()){
-            panel.add(playerSkin.addShopIcon(x,y,width,height,"skins//"+whichSkin+"//"+name+round+"//"+name+round+"Shop.png"));
+            panel.add(playerSkin.addShopIcon(x,y,width,height,"skins\\"+whichSkin+"\\"+name+round+"\\"+name+round+"Shop.png"));
+            //buttonSettings(playerSkin);
             round++;
             if(round==3){
                 y = 200;
@@ -71,10 +75,41 @@ public class Shop extends JPanel implements KeyListener {
     }
 
     public void addSkins(){
-        playerSkinsPan.getSkins().add(new PlayerSkin("skin1","skins//player//skin1//skin1.png",0,Type.EQUIP));
-        playerSkinsPan.getSkins().add(new PlayerSkin("skin2","skins//player//skin2//skin2.png",10,Type.EXPENSIVE));
-        platformSkinsPan.getSkins().add(new PlatformSkins(0,Type.EQUIP,"platformSkin1",4));
-        platformSkinsPan.getSkins().add(new PlatformSkins(10,Type.EXPENSIVE,"platformSkin2",4));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin1","skins\\player\\skin1\\skin1.png",0,Type.EQUIP,this));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin2","skins\\player\\skin2\\skin2.png",5,Type.EXPENSIVE,this));
+        platformSkinsPan.getSkins().add(new PlatformSkins(0,Type.EQUIP,"platformSkin1",4,this));
+        platformSkinsPan.getSkins().add(new PlatformSkins(10,Type.EXPENSIVE,"platformSkin2",4,this));
+        backgroundSkinsPan.getSkins().add(new BackgroundSkin(0,Type.EQUIP,"backgroundSkin1",this,frame));
+        backgroundSkinsPan.getSkins().add(new BackgroundSkin(5,Type.EXPENSIVE,"backgroundSkin2",this,frame));
+    }
+    public void updateButtons(Player player){
+        for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
+            playerSkinsPan.getSkins().get(i).typeSet(player.getCoinCounter().getCoinsCount());
+        }
+        for (int i = 0;i<platformSkinsPan.getSkins().size();i++){
+            platformSkinsPan.getSkins().get(i).typeSet(player.getCoinCounter().getCoinsCount());
+        }
+        for(int i = 0;i<backgroundSkinsPan.getSkins().size();i++){
+            backgroundSkinsPan.getSkins().get(i).typeSet(player.getCoinCounter().getCoinsCount());
+        }
+    }
+    public void updatePlayerReferences(Player newPlayer,Game newGame) {
+        for (ComponentSkin skin : playerSkinsPan.getSkins()) {
+            if (skin instanceof PlayerSkin ps) {
+                ps.setPlayer(newPlayer);
+                ps.setButtonActionPlay(playerSkinsPan, newPlayer,newGame);
+            }
+        }
+        for(ComponentSkin skin : platformSkinsPan.getSkins()){
+            if(skin instanceof PlatformSkins platformSkins){
+                platformSkins.setButtonActionPlat(platformSkinsPan,frame.getGame().getPlatforms(),frame.getGame().getPlayer(),frame.getGame());
+            }
+        }
+        for(ComponentSkin skin : backgroundSkinsPan.getSkins()){
+            if(skin instanceof BackgroundSkin backgroundSkin){
+                backgroundSkin.setButtonActionBack(backgroundSkinsPan,frame.getGame().getPlayer());
+            }
+        }
     }
     public void updateCoinText(int updateCoins){
         coins.setText("Coins: "+updateCoins);
@@ -85,23 +120,25 @@ public class Shop extends JPanel implements KeyListener {
     }
     public void addButtons(){
         for(Button button : buttons.values()){
+            button.setButtonsSkin();
             this.add(button);
         }
     }
     public void putButons(){
-        buttons.put("playerSkins",new Button("Player",10,50,200,50,20));
-        buttons.put("platformSkins",new Button("Platforms",220,50,200,50,20));
-        buttons.put("backgroundSkins",new Button("Background",430,50,200,50,20));
+        buttons.put("playerSkins",new Button("Player",10,50,200,50,20,"medium"));
+        buttons.put("platformSkins",new Button("Platforms",220,50,200,50,20,"medium"));
+        buttons.put("backgroundSkins",new Button("Background",430,50,200,50,20,"medium"));
         addButtons();
     }
-    public void buutonSet(){
+    /*public void buutonSet(){
         for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
             playerSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
         }
         for(int i =0;i<platformSkinsPan.getSkins().size();i++){
             platformSkinsPan.getSkins().get(i).typeSet(frame.getGame().getPlayer().getCoinCounter().getCoinsCount());
         }
-    }
+
+    }*/
 
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
@@ -111,17 +148,43 @@ public class Shop extends JPanel implements KeyListener {
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
+        //this.add(frame.getGameBackground());
         this.repaint();
         this.revalidate();
     }
-
-    public PlayerSkin equipPlayerSkin(){
-        for(ComponentSkin playerSkin : playerSkinsPan.getSkins()){
-            if(playerSkin.getType() == Type.EQUIP){
-                return (PlayerSkin) playerSkin;
+    public void equipBackground(Frame frame){
+        for(ComponentSkin componentSkin : backgroundSkinsPan.getSkins()){
+            if(componentSkin instanceof BackgroundSkin bs){
+                if(bs.getType() == Type.EQUIP){
+                    frame.getGameBackground().setBackgroundSkin(bs);
+                    frame.getGameBackground().addTexture();
+                }
             }
         }
-        return null;
+    }
+
+    public void equipSkins(Game game){
+        for(ComponentSkin componentSkin : playerSkinsPan.getSkins()){
+            if(componentSkin instanceof PlayerSkin ps){
+                if(ps.getType()==Type.EQUIP){
+                    game.getPlayer().setPlayerSkin(ps);
+                }
+            }
+        }
+
+    }
+    public void equipPlatformSkins(Game game){
+        for(ComponentSkin componentSkin : platformSkinsPan.getSkins()){
+            if(componentSkin instanceof PlatformSkins platformSkins){
+                if(platformSkins.getType()==Type.EQUIP){
+                    for(int i = 0;i<game.getPlatforms().size();i++){
+                        System.out.println("jaj "+game.getPlatforms().size());
+                        game.getPlatforms().get(i).setPlatformSkins(platformSkins);
+                        game.getPlatforms().get(i).addTexture();
+                    }
+                }
+            }
+        }
     }
 
     public void setButtons(){
@@ -138,6 +201,10 @@ public class Shop extends JPanel implements KeyListener {
                 }
             }
         }
+    }
+
+    public SkinPanel getPlatformSkinsPan() {
+        return platformSkinsPan;
     }
 
     @Override

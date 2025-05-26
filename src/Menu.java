@@ -10,6 +10,8 @@ public class Menu extends JPanel {
     private HashMap<String,Button> buttons;
     private ArrayList<TextLabel> labels;
     private Score score;
+    private Background background;
+
 
     public Menu(Frame frame) {
         buttons = new HashMap<>();
@@ -27,7 +29,6 @@ public class Menu extends JPanel {
         this.setBackground(Color.BLACK);
         this.setVisible(true);
         this.setLayout(null);
-        this.add(frame.backgr("images\\space.png"));
         this.repaint();
         this.revalidate();
     }
@@ -41,12 +42,13 @@ public class Menu extends JPanel {
         }
     }
     public void putButtons(){
-        buttons.put("Play",new Button("Play",250,200,150,100,30));
-        buttons.put("Shop",new Button("Shop",250,400,150,100,30));
+        buttons.put("Play",new Button("Play",250,200,150,100,30,"big"));
+        buttons.put("Shop",new Button("Shop",250,400,150,100,30,"big"));
         addButtons();
     }
     public void addButtons(){
         for(Button button : buttons.values()){
+            button.setButtonsSkin();
             this.add(button);
         }
     }
@@ -61,6 +63,9 @@ public class Menu extends JPanel {
                             for(Component panel : frame.getMainPanel().getComponents()){
                                 if(panel instanceof Game game){
                                     frame.getCardLayout().show(frame.getMainPanel(),"game");
+                                    frame.getShop().equipSkins(game);
+                                    frame.getShop().equipPlatformSkins(game);
+                                    frame.getShop().equipBackground(frame);
                                     game.requestFocusInWindow();
                                     game.startGame();
                                 }
@@ -75,7 +80,7 @@ public class Menu extends JPanel {
                             for(Component panel : frame.getMainPanel().getComponents()){
                                 if(panel instanceof Shop shop){
                                     frame.getCardLayout().show(frame.getMainPanel(),"shop");
-                                    shop.buutonSet();
+                                    shop.updateButtons(frame.getGame().getPlayer());
                                     shop.requestFocusInWindow();
                                 }
                             }

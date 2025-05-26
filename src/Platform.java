@@ -20,16 +20,22 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setVisible(true);
         this.setBounds(x,y,width,height);
         this.setBackground(Color.GREEN);
-        this.platformSkins = new PlatformSkins(0,Type.EQUIP,"platformSkin1",4);
+        //this.platformSkins = new PlatformSkins(0,Type.EQUIP,"platformSkin1",4);
         //addBasicTexture();
-        addTexture();
+        //addTexture();
         this.setOpaque(true);
     }
     public void addTexture(){
         int randomNum = rd.nextInt(platformSkins.getPlatformSkins().size());
         icon = new ImageIcon(platformSkins.getPlatformSkins().get(randomNum));
+        System.out.println("JUJ");
         this.setIcon(icon);
     }
+
+    public void setPlatformSkins(PlatformSkins platformSkins) {
+        this.platformSkins = platformSkins;
+    }
+
     public void moveRight(int speed){
         this.setLocation(getX()-speed,getY());
     }

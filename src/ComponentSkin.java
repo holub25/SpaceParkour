@@ -22,7 +22,8 @@ public abstract class ComponentSkin {
         this.icon = new ImageIcon(image);
         setBackGround();
         shopIcon.setLayout(null);
-        buyButton = new Button("Buy",10,height-30,100,30,10);
+        buyButton = new Button("Buy",(width/2)-50,height-40,100,30,13,"small");
+        buyButton.setButtonsSkin();
         shopIcon.add(buyButton);
         shopIcon.add(background);
         return shopIcon;
@@ -46,14 +47,16 @@ public abstract class ComponentSkin {
                 System.out.println("U2");
                 type = Type.EXPENSIVE;
                 buyButton.setEnabled(false);
-                buyButton.setText("BUY");
-            }else if(price<=coins){
+                buyButton.setText("BUY "+price);
+            }else {
                 System.out.println("U3");
                 type = Type.BUY;
                 buyButton.setEnabled(true);
-                buyButton.setText("BUY");
+                buyButton.setText("BUY "+price);
             }
         }
+        shopIcon.repaint();
+        shopIcon.revalidate();
     }
     public void setBackGround(){
         this.background = new JLabel();
@@ -67,6 +70,13 @@ public abstract class ComponentSkin {
         return buyButton;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 
     public Type getType() {
         return type;
