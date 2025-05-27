@@ -34,7 +34,6 @@ public class Player extends JLabel  {
         this.jumpSpeed = 0;
         this.gravity = 1;
         this.coinCounter = new CoinCounter(0,10,10,100,30,20);
-        //this.playerSkin = new PlayerSkin("skin1","skins//player//skin1//skin1.png",0,Type.EQUIP,);
         labelSettings();
     }
     public void playerGetCoin(Game game){
@@ -155,7 +154,6 @@ public class Player extends JLabel  {
     }
     public boolean headCollision(ArrayList<Platform> platforms){
         Rectangle newPosition = new Rectangle(x,y + jumpSpeed,width,height);
-
         for(int i = 0;i<platforms.size();i++){
             if(newPosition.intersects(platforms.get(i).getBounds())){
                 if(y>platforms.get(i).getY()){
@@ -173,6 +171,12 @@ public class Player extends JLabel  {
     @Override
     public int getWidth() {
         return width;
+    }
+
+
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     @Override

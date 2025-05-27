@@ -5,8 +5,6 @@ import java.util.Random;
 public class CoinGenerator {
     private ArrayList<Coin> coins;
     private Game game;
-    //private int platformCounter;
-    //private int platformDelay;
     private Random rd;
     private int chance;
 
@@ -15,8 +13,6 @@ public class CoinGenerator {
         this.rd = new Random();
         this.coins = new ArrayList<>();
         this.game = game;
-        //this.platformCounter = 0;
-        //this.platformDelay = 5;
     }
 
     public void generator(int height,int width){

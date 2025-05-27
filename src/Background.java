@@ -3,7 +3,6 @@ import java.awt.*;
 
 public class Background extends JLabel {
     private BackgroundSkin backgroundSkin;
-    //private ImageIcon icon;
     private Frame frame;
 
 

@@ -43,7 +43,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.gameLoop = new GameLoop(gameLogic);
         this.thread = new Thread(gameLoop);
         thread.start();
-        //System.out.println("AKTIVNI Vlakna: "+Thread.activeCount());
     }
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());

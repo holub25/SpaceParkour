@@ -46,6 +46,9 @@ public class Loader {
         }
     }
     public Type typeSelect(String value){
+        if(value == null){
+            return null;
+        }
         switch (value){
             case "EQUIP":
                 return Type.EQUIP;

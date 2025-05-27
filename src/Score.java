@@ -19,7 +19,7 @@ public class Score{
     public void updateBestScore(){
         labelBestS.setText("Best score: "+bestScore);
     }
-    public boolean setBestScore(){
+    public boolean setBestScoreOnMenu(){
         if(playerScore>bestScore){
             bestScore = playerScore;
             updateBestScore();

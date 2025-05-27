@@ -34,20 +34,9 @@ public class Audio {
             System.out.println("ERROR4");
         }
     }
-    public void play(){
-        if(loaded && clip != null){
-            clip.setFramePosition(0);
-            clip.start();
-        }
-    }
     public void loop(){
         if(loaded && clip != null){
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
-    }
-    public void stop(){
-        if (loaded && clip != null && clip.isRunning()) {
-            clip.stop();
         }
     }
     public void setVolume(int volume){
@@ -61,7 +50,5 @@ public class Audio {
         }
 
     }
-    public Clip getClip() {
-        return clip;
-    }
+
 }

@@ -10,7 +10,6 @@ public class CoinCounter {
     }
     public void getOneCoin(){
         coinsCount++;
-        System.out.println("ZKOUKS: "+coinsCount);
     }
     public void updateText(){
         coinsLabel.setText("COINS: "+coinsCount);

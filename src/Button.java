@@ -18,6 +18,7 @@ public class Button extends JButton {
         this.repaint();
         this.revalidate();
     }
+
     public void setButtonsSkin(){
         String way = "skins\\button\\"+size+"\\"+size+"Button";
         ImageIcon enebaleIcon = new ImageIcon(way+"Ene.png");

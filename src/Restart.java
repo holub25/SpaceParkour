@@ -38,7 +38,7 @@ public class Restart extends JPanel {
             if (panel instanceof Menu menu) {
                 for (int i = 0; i < texts.size(); i++) {
                     if (texts.get(i).getName().equals("record")) {
-                        if (menu.getScore().setBestScore()) {
+                        if (menu.getScore().setBestScoreOnMenu()) {
                             texts.get(i).setText("NEW RECORD: "+menu.getScore().getBestScore());
                             texts.get(i).setVisible(true);
                         }else {
@@ -90,7 +90,7 @@ public class Restart extends JPanel {
 
     public void addTextsList() {
         texts.add(new TextLabel("fail", "FAIL", 25, 30, 600, 100, 40, Color.WHITE));
-        texts.add(new TextLabel("record", "NEW RECORD: " + bestScore, 250, 100, 150, 80, 18, Color.YELLOW));
+        texts.add(new TextLabel("record", "NEW RECORD: " + bestScore, 250, 100, 150, 80, 15, Color.YELLOW));
         addTexts();
     }
 
