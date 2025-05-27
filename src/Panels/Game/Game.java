@@ -44,7 +44,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.setScore();
         this.player = new Player(300,400,29,45,5,10,-25);
         this.generator = new Generator(score,frame);
-        this.coinGenerator = new CoinGenerator(this,30);
+        this.coinGenerator = new CoinGenerator(this,20);
         this.background = frame.getGameBackground();
         Platform firstPlatform = new Platform(225,800,180,20);
         this.add(score.getLabelNowS());
@@ -205,7 +205,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
     public void addCoins(){
-        coinGenerator.generator(30,30);
+        coinGenerator.generator(31,31);
         for(int i = 0;i<coinGenerator.getCoins().size();i++){
             Coin coin = coinGenerator.getCoins().get(i);
             this.add(coin);

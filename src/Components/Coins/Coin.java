@@ -24,7 +24,11 @@ public class Coin extends JLabel {
     public void labelSettings(){
         this.setBounds(x,y,width,height);
         this.setVisible(true);
-        this.setBackground(Color.CYAN);
-        this.setOpaque(true);
+        this.setOpaque(false);
+        setCoinTexture();
+    }
+    public void setCoinTexture(){
+        ImageIcon icon = new ImageIcon("skins\\coin\\coin.png");
+        this.setIcon(icon);
     }
 }
