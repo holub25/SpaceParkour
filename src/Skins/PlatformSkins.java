@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * PlatformSkins class extends ComponentSkin and represents a skin for platforms in the game.
+ * It allows setting button actions and keeps a list of platform skin images.
+ */
 public class PlatformSkins extends ComponentSkin {
     private ArrayList<String> platformSkins;
     private int lastNum;
@@ -21,6 +25,14 @@ public class PlatformSkins extends ComponentSkin {
         this.shop = shop;
         addPlatformSkin();
     }
+
+    /**
+     * Sets action for the skin's button in the given SkinPanel.
+     * When clicked, the skin is either equipped (if owned) or bought (if for sale).
+     *
+     * @param panel skin panel
+     * @param player player whose coins are modified
+     */
     public void setButtonActionPlat(SkinPanel panel, Player player){
         getBuyButton().setActionList(new ActionListener() {
             @Override
@@ -40,12 +52,16 @@ public class PlatformSkins extends ComponentSkin {
 
                 }
                 shop.updateButtons(player);
-                panel.requestFocusInWindow();
+                shop.requestFocusInWindow();
                 panel.repaint();
                 panel.revalidate();
             }
         });
     }
+
+    /**
+     * Fills the platformSkins list with paths to skin images.
+     */
     public void addPlatformSkin(){
         for(int i = 1;i<lastNum;i++){
             platformSkins.add("skins\\platforms\\"+getName()+"\\"+getName()+"-"+i+".png");

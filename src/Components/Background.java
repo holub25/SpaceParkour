@@ -5,6 +5,9 @@ import Skins.BackgroundSkin;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents the background of the game scene.
+ */
 public class Background extends JLabel {
     private BackgroundSkin backgroundSkin;
     private Frame frame;
@@ -25,6 +28,10 @@ public class Background extends JLabel {
     public void setBackgroundSkin(BackgroundSkin backgroundSkin){
         this.backgroundSkin = backgroundSkin;
     }
+
+    /**
+     * Sets the graphical texture of the background using the selected skin.
+     */
     public void addTexture(){
         this.setIcon(backgroundSkin.getIcon());
     }

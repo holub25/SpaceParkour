@@ -10,16 +10,29 @@ import Panels.Game.Generator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for Generator.
+ * Tests the methods difficultyY and difficultyX which
+ * determine the position of generated objects based on the player's score.
+ */
 class GeneratorTest {
     private Generator generator;
     private Score score;
 
+    /**
+     * Setup before each test.
+     * Creates new Score and Generator instances.
+     */
     @BeforeEach
     void setUp() {
         this.score = new Score();
         this.generator = new Generator(score,null);
     }
 
+    /**
+     * Test of difficultyY method.
+     * Verifies that the method correctly decreases the Y value based on the player's score.
+     */
     @Test
     void difficultyYTest() {
         int lastY = 1000;
@@ -36,6 +49,10 @@ class GeneratorTest {
         Assertions.assertEquals(700, generator.difficultyY(lastY));
     }
 
+    /**
+     * Test of difficultyX method.
+     * Verifies that difficultyX returns a value within the expected range based on the player's score.
+     */
     @Test
     void difficultyXTest() {
         int lastX = 500;

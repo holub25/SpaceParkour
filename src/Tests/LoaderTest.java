@@ -10,6 +10,11 @@ import Panels.Shop.Shop;
 import Skins.Type;
 import Frame.Frame;
 import Saves.Loader;
+
+/**
+ * Test class for Loader.
+ * Tests the typeSelect method that converts a String to the Type enum.
+ */
 class LoaderTest {
 
     private Loader loader;
@@ -18,6 +23,10 @@ class LoaderTest {
     private Menu menu;
     private Shop shop;
 
+    /**
+     * Setup before each test.
+     * Creates new instances of frame, menu, shop, game and loader.
+     */
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         this.frame = new Frame();
@@ -27,6 +36,9 @@ class LoaderTest {
         this.loader = new Loader(menu,game.getPlayer(),shop,frame);
     }
 
+    /**
+     * Tests correct conversion of string to Type enum.
+     */
     @Test
     void typeSelect() {
         Assertions.assertEquals(Type.EQUIP,loader.typeSelect("EQUIP"));
@@ -35,6 +47,10 @@ class LoaderTest {
         Assertions.assertEquals(Type.EXPENSIVE,loader.typeSelect("EXPENSIVE"));
     }
 
+    /**
+     * Tests invalid or unknown inputs.
+     * Expects null return.
+     */
     @Test
     void typeSelectWrong() {
         assertNull(loader.typeSelect("UNKNOWN"));

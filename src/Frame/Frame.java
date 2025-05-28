@@ -15,8 +15,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
-
+/**
+ * Main application window for the Space Parkour game.
+ * Manages panels, background music, game saving/loading, and background display.
+ */
 public class Frame extends JFrame {
     private int width = 650;
     private int height = 800;
@@ -52,25 +56,38 @@ public class Frame extends JFrame {
         this.repaint();
         endFrame();
     }
+
+    /**
+     * Saves the current game state.
+     */
     public void saveGame(){
         this.saver = new Saver(menu,game.getPlayer(),shop);
     }
+
+    /**
+     * Loads the saved game state.
+     */
     public void loadGame(){
         this.loader = new Loader(menu,game.getPlayer(),shop,this);
     }
 
+    /**
+     * Sets up and starts the main game music in a loop.
+     */
     public void musicSettings(){
         this.mainMusic = new Audio("Sounds//music.wav");
         this.mainMusic.setVolume(-15);
         this.mainMusic.loop();
     }
-    public void addPanels(){
 
+    /**
+     * Initializes and adds main panels to the CardLayout.
+     */
+    public void addPanels(){
         menu = new Menu(this);
         mainPanel.add("menu",menu);
         game = new Game(this);
         mainPanel.add("game", game);
-
         shop = new Shop(this);
         mainPanel.add("shop",shop);
         shop.equipBackground(this);
@@ -78,6 +95,12 @@ public class Frame extends JFrame {
         mainPanel.add("restart", restart);
         setBackgrounds(this.getGameBackground().getBackgroundSkin().getWay());
     }
+
+    /**
+     * Sets background images for specified panels.
+     *
+     * @param way path to the background image
+     */
     public void setBackgrounds(String way){
         removeOldBackground(menu);
         removeOldBackground(shop);
@@ -89,11 +112,21 @@ public class Frame extends JFrame {
         repainRevalidate(shop);
         repainRevalidate(restart);
     }
+    /**
+     * Refreshes the panel by calling repaint and revalidate.
+     *
+     * @param panel JPanel to refresh
+     */
     public void repainRevalidate(JPanel panel){
         panel.repaint();
         panel.revalidate();
     }
 
+    /**
+     * Removes old background from the panel.
+     *
+     * @param panel to remove background from
+     */
     private void removeOldBackground(JPanel panel) {
         for (Component comp : panel.getComponents()) {
             if (comp instanceof JLabel label && label.getIcon() != null) {
@@ -102,6 +135,13 @@ public class Frame extends JFrame {
             }
         }
     }
+
+    /**
+     * Creates a JLabel with background set from given image path.
+     *
+     * @param image path to the image
+     * @return JLabel with set background icon
+     */
     public JLabel backgr(String image){
         ImageIcon background = new ImageIcon(image);
         JLabel label = new JLabel(background);
@@ -109,6 +149,10 @@ public class Frame extends JFrame {
         label.setVisible(true);
         return label;
     }
+
+    /**
+     * The game is saved when the window is closed
+     */
     public void endFrame(){
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -146,8 +190,6 @@ public class Frame extends JFrame {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
-
     public Background getGameBackground() {
         return background;
     }

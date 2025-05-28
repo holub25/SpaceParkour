@@ -5,6 +5,11 @@ import Components.Button;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Abstract class ComponentSkin represents the basic skin component,
+ * which includes visual representation (icon), a buy button,
+ * name, price, and skin type.
+ */
 public abstract class ComponentSkin {
     private JPanel shopIcon;
     private Components.Button buyButton;
@@ -21,6 +26,18 @@ public abstract class ComponentSkin {
         this.shopIcon = new JPanel();
 
     }
+
+    /**
+     * Creates a skin panel for the shop, sets position, size, and background.
+     * Adds buy button and background icon.
+     *
+     * @param x panel X position
+     * @param y panel Y position
+     * @param width panel width
+     * @param height panel height
+     * @param image path to icon image
+     * @return prepared skin panel for display
+     */
     public JPanel addShopIcon(int x,int y,int width, int height,String image){
         shopIcon.setBounds(x,y,width,height);
         shopIcon.setVisible(true);
@@ -34,6 +51,13 @@ public abstract class ComponentSkin {
         shopIcon.add(background);
         return shopIcon;
     }
+
+    /**
+     * Sets buyButton state based on skin type and player's coin count.
+     * Updates button text and enabled state accordingly.
+     *
+     * @param coins current player's coin count
+     */
     public void typeSet(int coins){
         if(type == Type.EQUIP || type == Type.OWN){
             System.out.println("U4");
@@ -64,6 +88,10 @@ public abstract class ComponentSkin {
         shopIcon.repaint();
         shopIcon.revalidate();
     }
+
+    /**
+     * Sets background of the skin panel as a JLabel with the icon.
+     */
     public void setBackGround(){
         this.background = new JLabel();
         this.background.setVisible(true);
@@ -90,8 +118,5 @@ public abstract class ComponentSkin {
 
     public Type getType() {
         return type;
-    }
-    public void setShopIcon(JPanel shopIcon) {
-        this.shopIcon = shopIcon;
     }
 }

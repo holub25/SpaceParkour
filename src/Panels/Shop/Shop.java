@@ -20,6 +20,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+/**
+ * Shop panel in the game.
+ * Allows the player to select, buy, and equip skins for the player, platforms, and background.
+ */
 public class Shop extends JPanel implements KeyListener {
     private Frame frame;
     private HashMap<String, Button> buttons;
@@ -45,25 +49,33 @@ public class Shop extends JPanel implements KeyListener {
         addSkisPlayerOnPanel();
         setButtons();
         updateButtons(frame.getGame().getPlayer());
-        updatePlayerReferences(frame.getGame().getPlayer(),frame.getGame());
+        updatePlayerReferences(frame.getGame().getPlayer());
         panelSettings();
     }
+
+    /**
+     * Initializes separate panels for player, platform, and background skins and adds them to the shop.
+     */
     public void addSkinsPanel(){
-        playerSkinsPan = new SkinPanel(frame);
+        playerSkinsPan = new SkinPanel();
         playerSkinsPan.setLayout(null);
         playerSkinsPan.setName("playerSkins");
         shopPanel.add("playerSkins", playerSkinsPan);
 
-        platformSkinsPan = new SkinPanel(frame);
+        platformSkinsPan = new SkinPanel();
         platformSkinsPan.setLayout(null);
         platformSkinsPan.setName("platformSkins");
         shopPanel.add("platformSkins", platformSkinsPan);
 
-        backgroundSkinsPan = new SkinPanel(frame);
+        backgroundSkinsPan = new SkinPanel();
         backgroundSkinsPan.setLayout(null);
         backgroundSkinsPan.setName("backgroundSkins");
         shopPanel.add("backgroundSkins", backgroundSkinsPan);
     }
+
+    /**
+     * Adds skin icons to the corresponding skin panels
+     */
     public void addSkisPlayerOnPanel(){
         int x = 10;
         int y = 10;
@@ -74,10 +86,22 @@ public class Shop extends JPanel implements KeyListener {
         addSkinsOnPanel(x,y,width,height,round,platformSkinsPan,"platformSkin","platforms");
         addSkinsOnPanel(x,y,width,height,round,backgroundSkinsPan,"backgroundSkin","background");
     }
+
+    /**
+     * Adds individual skins to a given panel based on type and image paths.
+     *
+     * @param x starting X position
+     * @param y starting Y position
+     * @param width width of the skin icon
+     * @param height height of the skin icon
+     * @param round skin index
+     * @param panel panel to which skins are added
+     * @param name name prefix of the skin
+     * @param whichSkin skin folder
+     */
     public void addSkinsOnPanel(int x, int y, int width, int height, int round, SkinPanel panel, String name, String whichSkin){
         for(ComponentSkin playerSkin : panel.getSkins()){
             panel.add(playerSkin.addShopIcon(x,y,width,height,"skins\\"+whichSkin+"\\"+name+round+"\\"+name+round+"Shop.png"));
-            //buttonSettings(playerSkin);
             round++;
             if(round==3){
                 y = 200;
@@ -86,6 +110,9 @@ public class Shop extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Adds new skins to the shop
+     */
     public void addSkins(){
         playerSkinsPan.getSkins().add(new PlayerSkin("skin1","skins\\player\\skin1\\skin1.png",0, Type.EQUIP,this));
         playerSkinsPan.getSkins().add(new PlayerSkin("skin2","skins\\player\\skin2\\skin2.png",5, Type.EXPENSIVE,this));
@@ -94,6 +121,12 @@ public class Shop extends JPanel implements KeyListener {
         backgroundSkinsPan.getSkins().add(new BackgroundSkin("backgroundSkin1",0, Type.EQUIP,this,frame));
         backgroundSkinsPan.getSkins().add(new BackgroundSkin("backgroundSkin2",5, Type.EXPENSIVE,this,frame));
     }
+
+    /**
+     * Updates the button states based on the player's coin count
+     *
+     * @param player player whose coin count is used for checking availability
+     */
     public void updateButtons(Player player){
         for(int i = 0;i<playerSkinsPan.getSkins().size();i++){
             playerSkinsPan.getSkins().get(i).typeSet(player.getCoinCounter().getCoinsCount());
@@ -105,7 +138,14 @@ public class Shop extends JPanel implements KeyListener {
             backgroundSkinsPan.getSkins().get(i).typeSet(player.getCoinCounter().getCoinsCount());
         }
     }
-    public void updatePlayerReferences(Player newPlayer, Game newGame) {
+
+    /**
+     * Updates the player reference in all skin instances (player, platform, background).
+     * Also sets the corresponding button actions for each skin type.
+     *
+     * @param newPlayer new player instance to be assigned to skin components
+     */
+    public void updatePlayerReferences(Player newPlayer) {
         for (ComponentSkin skin : playerSkinsPan.getSkins()) {
             if (skin instanceof PlayerSkin ps) {
                 ps.setPlayer(newPlayer);
@@ -123,19 +163,37 @@ public class Shop extends JPanel implements KeyListener {
             }
         }
     }
+
+    /**
+     * Updates the coin label with the new coin amount.
+     *
+     * @param updateCoins current coin count
+     */
     public void updateCoinText(int updateCoins){
         coins.setText("Coins: "+updateCoins);
     }
+
+    /**
+     * Adds the coin label showing current coin count to the panel.
+     */
     public void addCoinLabel(){
         this.coins = new TextLabel("coins","Coins: " + frame.getGame().getPlayer().getCoinCounter().getCoinsCount(),10,10,200,50,20,Color.WHITE);
         this.add(coins);
     }
+
+    /**
+     * Adds skin category buttons to the panel.
+     */
     public void addButtons(){
         for(Button button : buttons.values()){
             button.setButtonsSkin();
             this.add(button);
         }
     }
+
+    /**
+     * Initializes and adds all skin category buttons to the panel.
+     */
     public void putButons(){
         buttons.put("playerSkins",new Button("Player",10,50,200,50,20,"medium"));
         buttons.put("platformSkins",new Button("Platforms",220,50,200,50,20,"medium"));
@@ -143,6 +201,9 @@ public class Shop extends JPanel implements KeyListener {
         addButtons();
     }
 
+    /**
+     * Sets basic panel properties such as size, layout, background color.
+     */
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
@@ -151,10 +212,15 @@ public class Shop extends JPanel implements KeyListener {
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        //this.add(frame.getGameBackground());
         this.repaint();
         this.revalidate();
     }
+
+    /**
+     * Applies the equipped background skin to the game background.
+     *
+     * @param frame the main game frame
+     */
     public void equipBackground(Frame frame){
         for(ComponentSkin componentSkin : backgroundSkinsPan.getSkins()){
             if(componentSkin instanceof BackgroundSkin bs){
@@ -166,6 +232,11 @@ public class Shop extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Applies the equipped player skin to the current game.
+     *
+     * @param game the current game instance
+     */
     public void equipSkins(Game game){
         for(ComponentSkin componentSkin : playerSkinsPan.getSkins()){
             if(componentSkin instanceof PlayerSkin ps){
@@ -174,8 +245,13 @@ public class Shop extends JPanel implements KeyListener {
                 }
             }
         }
-
     }
+
+    /**
+     * Applies the equipped platform skin to all active platforms in the game.
+     *
+     * @param game the current game instance
+     */
     public void equipPlatformSkins(Game game){
         for(ComponentSkin componentSkin : platformSkinsPan.getSkins()){
             if(componentSkin instanceof PlatformSkins platformSkins){
@@ -190,6 +266,9 @@ public class Shop extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Sets up actions for each skin category button to switch visible panels.
+     */
     public void setButtons(){
         for(String name : buttons.keySet()){
             for(Component panel : shopPanel.getComponents()){
@@ -198,12 +277,15 @@ public class Shop extends JPanel implements KeyListener {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             cardLayout.show(shopPanel,name);
-                            panel.requestFocusInWindow();
+                            shopRequestFocus();
                         }
                     });
                 }
             }
         }
+    }
+    public void shopRequestFocus(){
+        this.requestFocusInWindow();
     }
 
     public SkinPanel getPlatformSkinsPan() {
@@ -221,6 +303,12 @@ public class Shop extends JPanel implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
+    /**
+     * Handles key press events, particularly ESC to return to the menu.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){

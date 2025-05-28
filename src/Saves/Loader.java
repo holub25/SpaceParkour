@@ -10,6 +10,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Loader class is responsible for reading saved game data from a file
+ * and initializing the game state based on that data.
+ */
 public class Loader {
     private FileReader fr;
     private BufferedReader br;
@@ -27,6 +31,16 @@ public class Loader {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Reads the file line by line and calls the appropriate loading method for each line.
+     *
+     * @param menu the main menu panel
+     * @param player the player object
+     * @param shop the shop panel
+     * @param frame the main game frame
+     * @throws IOException if some error while reading a file.
+     */
     public void fileReading(Menu menu,Player player,Shop shop,Frame frame) throws IOException {
         String line;
         while ((line = br.readLine())!=null){
@@ -38,6 +52,13 @@ public class Loader {
             loadEveryBackground(line,frame);
         }
     }
+
+    /**
+     * Parses best score from save file and updates menu score label.
+     *
+     * @param line the current line in file
+     * @param menu the main menu panel
+     */
     public void loadBestScore(String line,Menu menu){
         if((line.split(";")[0]).equalsIgnoreCase("bestScore")){
             menu.getScore().setBestScore(Integer.parseInt(line.split(";")[1]));
@@ -45,13 +66,27 @@ public class Loader {
         }
     }
 
-    public void loadCoins(String line,Player player,Shop shop) throws IOException {
+    /**
+     * Loads saved coin count, applies it to player and updates shop display.
+     *
+     * @param line the current line in file
+     * @param player the player object
+     * @param shop the shop panel
+     */
+    public void loadCoins(String line,Player player,Shop shop){
         if((line.split(";")[0]).equalsIgnoreCase("coins")){
             int coins = Integer.parseInt(line.split(";")[1]);
             player.getCoinCounter().setCoinsCount(coins);
             shop.updateCoinText(coins);
         }
     }
+
+    /**
+     * Helper method to convert string values to Type enum.
+     *
+     * @param value the string representing the skin type
+     * @return the corresponding Type enum, or null if input is invalid
+     */
     public Type typeSelect(String value){
         if(value == null){
             return null;
@@ -68,6 +103,13 @@ public class Loader {
         }
         return null;
     }
+
+    /**
+     * Loads and sets skin state for player skins in the shop.
+     *
+     * @param line the current line in file
+     * @param shop the shop containing the list of player skins
+     */
     public void loadPlayerSkins(String line,Shop shop){
         for(int i = 0;i<shop.getPlayerSkinsPan().getSkins().size();i++){
             if(line.split(";")[0].equalsIgnoreCase(shop.getPlayerSkinsPan().getSkins().get(i).getName())){
@@ -76,6 +118,13 @@ public class Loader {
             }
         }
     }
+
+    /**
+     * Loads and sets skin state for platform skins in the shop.
+     *
+     * @param line the current line in file
+     * @param shop the shop containing the list of platform skins
+     */
     public void loadPlatformSkins(String line, Shop shop){
         for(int i = 0;i<shop.getPlatformSkinsPan().getSkins().size();i++){
             if(line.split(";")[0].equalsIgnoreCase(shop.getPlatformSkinsPan().getSkins().get(i).getName())){
@@ -84,6 +133,13 @@ public class Loader {
             }
         }
     }
+
+    /**
+     * Loads and sets skin state for background skins in the shop.
+     *
+     * @param line the current line in file
+     * @param shop the shop containing the list of background skins
+     */
     public void loadBackgroundSkins(String line,Shop shop){
         for(int i = 0;i<shop.getBackgroundSkinsPan().getSkins().size();i++){
             if(line.split(";")[0].equalsIgnoreCase(shop.getBackgroundSkinsPan().getSkins().get(i).getName())){
@@ -92,6 +148,13 @@ public class Loader {
             }
         }
     }
+
+    /**
+     * Loads selected background path and applies it to the game frame.
+     *
+     * @param line the current line in file
+     * @param frame the game frame where background will be set
+     */
     public void loadEveryBackground(String line,Frame frame){
         if(line.split(";")[0].equalsIgnoreCase("selectWay")){
             frame.setBackgrounds(line.split(";")[1]);

@@ -3,6 +3,11 @@ package Components;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+
+/**
+ * Custom implementation of a button.
+ * Supports setting the button's appearance using skins and attaching an action.
+ */
 public class Button extends JButton {
     private String size;
 
@@ -21,6 +26,11 @@ public class Button extends JButton {
         this.revalidate();
     }
 
+    /**
+     * Sets the button's appearance based on the selected size (skin).
+     * Uses specific images for normal, pressed, and disabled states.
+     */
+
     public void setButtonsSkin(){
         String way = "skins\\button\\"+size+"\\"+size+"Button";
         ImageIcon enebaleIcon = new ImageIcon(way+"Ene.png");
@@ -32,6 +42,12 @@ public class Button extends JButton {
         this.setHorizontalTextPosition(SwingConstants.CENTER);
         this.setVerticalTextPosition(SwingConstants.CENTER);
     }
+
+    /**
+     * Adds an action listener that is triggered when the button is clicked.
+     *
+     * @param actionListener the event listener.
+     */
     public void setActionList(ActionListener actionListener){
         this.addActionListener(actionListener);
     }

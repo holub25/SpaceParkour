@@ -3,6 +3,9 @@ package Components;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Custome Label that displays text at a given position with a specific style and color.
+ */
 public class TextLabel extends JLabel {
     private String name;
     public TextLabel(String name,String text, int x, int y, int width, int height, int textSize, Color color) {

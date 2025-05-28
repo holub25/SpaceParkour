@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * Main game panel handling game logic, input processing and updating game state.
+ */
 public class Game extends JPanel implements KeyListener, ActionListener {
     private Player player;
     private Frame frame;
@@ -53,11 +56,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         this.add(firstPlatform);
         panelSettings();
     }
+
+    /**
+     * Starts the game loop in a separate thread.
+     */
     public void startGame(){
         this.gameLoop = new GameLoop(gameLogic);
         this.thread = new Thread(gameLoop);
         thread.start();
     }
+
+    /**
+     * Sets basic properties of the game panel.
+     */
     public void panelSettings(){
         this.setBounds(0,0,frame.getWidth(),frame.getHeight());
         this.setVisible(true);
@@ -76,6 +87,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     }
 
+    /**
+     * Handles key press events.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
@@ -103,6 +119,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
         repaint();
     }
+
+    /**
+     * Handles key release events.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()){
@@ -125,6 +147,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         repaint();
     }
 
+    /**
+     * Removes platforms below the screen,
+     * adds coins and increments the score.
+     */
     public void deletePlatform(){
         for(int i = 0;i<platforms.size();i++){
             if(platforms.get(i).getY()>1000){
@@ -136,6 +162,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
+    /**
+     * Applies gravity to the player and moves platforms and coins upwards
+     * if player is not standing on a platform.
+     */
     public void gameGravity(){
         boolean colision = collisionManager.isOnPlatform(player,platforms);
         if(!colision){
@@ -150,16 +180,29 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
+    /**
+     * Calls game logic update method from GameLogic.
+     *
+     * @param e the event to be processed
+     */
+
     @Override
     public void actionPerformed(ActionEvent e) {
         gameLogic.updateLogic();
     }
+
+    /**
+     * Sets player icon state, collects coins and updates coin counter text.
+     */
     public void palyerSettings(){
         player.changeIcon(isLeftPressed,isRightPressed);
         player.playerGetCoin(this);
         player.getCoinCounter().updateText();
     }
 
+    /**
+     * Checks if player died. If yes, shows restart panel.
+     */
     public void deadRestart(){
         if(player.died(platforms)){
             for(Component panel : frame.getMainPanel().getComponents()){
@@ -173,16 +216,28 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
         }
     }
+
+    /**
+     * Starts jump if player is not jumping and standing on platform.
+     */
     public void startJump(){
         if (isJumpPressed && !player.isJumping() && player.isStaying()) {
             player.moveUp();
         }
     }
+
+    /**
+     * Generates new platforms when player is standing on platform.
+     */
     public void platfomrGenerating(){
         if(player.isStaying()){
             generator.platformGenerator(this,platforms);
         }
     }
+
+    /**
+     * Horizontal player movement based on key presses.
+     */
     public void horizonatlMove(){
         if (isLeftPressed) {
             player.moveLeft(platforms,coinGenerator);
@@ -190,6 +245,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             player.moveRight(platforms,coinGenerator);
         }
     }
+
+    /**
+     * Controls sprint speed when shift is pressed.
+     */
     public void sprint(){
         if (isSpeedPressed) {
             player.controlSpeed(true);
@@ -197,6 +256,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             player.controlSpeed(false);
         }
     }
+
+    /**
+     * Vertical player movement (jumping or gravity).
+     */
     public void verticalMove(){
         if(player.isJumping() || !player.isStaying()){
             player.gameJump(platforms,coinGenerator);
@@ -204,6 +267,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             gameGravity();
         }
     }
+
+    /**
+     * Adds coins to the game.
+     */
     public void addCoins(){
         coinGenerator.generator(31,31);
         for(int i = 0;i<coinGenerator.getCoins().size();i++){
@@ -213,6 +280,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
+    /**
+     * Finds and sets Score instance from Menu panel.
+     */
     public void setScore() {
         for(Component panel : frame.getMainPanel().getComponents()){
             if(panel instanceof Menu menu){

@@ -1,5 +1,8 @@
 package Panels.Game;
 
+/**
+ * Main game loop running in a separate thread.
+ */
 public class GameLoop extends Thread{
 
     private boolean running;
@@ -14,6 +17,9 @@ public class GameLoop extends Thread{
         this.gameLogic = gameLogic;
     }
 
+    /**
+     * The run method starts the loop that calls updateLogic..
+     */
     @Override
     public void run() {
 
@@ -37,6 +43,10 @@ public class GameLoop extends Thread{
             }
         }
     }
+
+    /**
+     * Stops the game loop.
+     */
     public void stopRun(){
         running = false;
     }

@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * BackgroundSkin class represents a background skin in the game.
+ * It holds information about the name, price, type, background image, and its path.
+ */
 public class BackgroundSkin extends ComponentSkin {
     private ImageIcon icon;
     private String way;
@@ -22,6 +26,13 @@ public class BackgroundSkin extends ComponentSkin {
         this.frame = frame;
     }
 
+    /**
+     * Sets action for the skin's button in the given SkinPanel.
+     * When clicked, the skin is either equipped (if owned) or bought (if for sale).
+     *
+     * @param panel panel containing the skins where the button is located
+     * @param player player whose coins are updated when buying the skin
+     */
     public void setButtonActionBack(SkinPanel panel, Player player){
         getBuyButton().setActionList(new ActionListener() {
             @Override
@@ -41,7 +52,7 @@ public class BackgroundSkin extends ComponentSkin {
                     setType(Type.OWN);
                 }
                 shop.updateButtons(player);
-                panel.requestFocusInWindow();
+                shop.requestFocusInWindow();
                 panel.repaint();
                 panel.revalidate();
             }

@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Represents a game platform that the player can stand on.
+ * Implements Comparable to allow comparison by height.
+ */
 public class Platform extends JLabel implements Comparable<Platform> {
     private int x;
     private int y;
@@ -24,11 +28,12 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.setVisible(true);
         this.setBounds(x,y,width,height);
         this.setBackground(Color.GREEN);
-        //this.platformSkins = new Skins.PlatformSkins(0,Skins.Type.EQUIP,"platformSkin1",4);
-        //addBasicTexture();
-        //addTexture();
         this.setOpaque(true);
     }
+
+    /**
+     * Randomly selects and sets the platform's texture from the available skins.
+     */
     public void addTexture(){
         int randomNum = rd.nextInt(platformSkins.getPlatformSkins().size());
         icon = new ImageIcon(platformSkins.getPlatformSkins().get(randomNum));
@@ -39,9 +44,20 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.platformSkins = platformSkins;
     }
 
+    /**
+     * Moves the platform to the right by the given speed
+     *
+     * @param speed of the movment
+     */
     public void moveRight(int speed){
         this.setLocation(getX()-speed,getY());
     }
+
+    /**
+     * Moves the platform to the left by the given speed
+     *
+     * @param speed of the movment
+     */
     public void moveLeft(int speed){
         this.setLocation(getX()+speed,getY());
     }
@@ -53,6 +69,14 @@ public class Platform extends JLabel implements Comparable<Platform> {
     public int getHeight() {
         return height;
     }
+
+    /**
+     * Compares two platforms based on their Y coordinate.
+     * Useful for finding the highest or lowest platform.
+     *
+     * @param p the object to be compared.
+     * @return -1 or 0 or 1
+     */
     @Override
     public int compareTo(Platform p) {
         return Integer.compare(this.getY(),p.getY());

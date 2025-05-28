@@ -9,18 +9,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class SkinPanel extends JPanel implements KeyListener {
-    private Frame frame;
+/**
+ * A panel that displays a list of skins for selection within the shop.
+ */
+public class SkinPanel extends JPanel{
     private ArrayList<ComponentSkin> skins;
-    public SkinPanel(Frame frame) {
+    public SkinPanel() {
         panelSettings();
-        this.frame = frame;
         this.skins = new ArrayList<>();
     }
+
+    /**
+     * Sets the panel's appearance and behavior.
+     */
     public void panelSettings(){
         this.setVisible(true);
         this.setBackground(Color.GRAY);
-        this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.repaint();
@@ -30,26 +34,5 @@ public class SkinPanel extends JPanel implements KeyListener {
     public ArrayList<ComponentSkin> getSkins() {
         return skins;
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_ESCAPE:
-                frame.getCardLayout().show(frame.getMainPanel(),"menu");
-        }
-        repaint();
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
 
 }

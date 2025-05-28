@@ -4,6 +4,10 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *  * CLASS `Audio`
+ *  * Represents a tool for loading, playing, and adjusting volume of an audio file.
+ */
 public class Audio {
 
     private AudioInputStream audio;
@@ -14,6 +18,11 @@ public class Audio {
         this.loaded = false;
         loadAudio(file);
     }
+
+    /**
+     * Loads the audio file from the specified path and prepares it for playback.
+     * @param file Path to the audio file
+     */
     public void loadAudio(String file){
         try {
             File audiFile = new File(file);
@@ -36,11 +45,20 @@ public class Audio {
             System.out.println("ERROR4");
         }
     }
+
+    /**
+     * Plays the loaded audio in a continuous loop.
+     */
     public void loop(){
         if(loaded && clip != null){
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
+
+    /**
+     * Sets the volume of the playing sound.
+     * @param volume Volume in decibels (dB)
+     */
     public void setVolume(int volume){
         if(loaded && clip != null){
             try {
