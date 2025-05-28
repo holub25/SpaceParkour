@@ -1,9 +1,12 @@
-bestScore;48
-coins;46
+bestScore;67
+coins;13
 skin1;OWN
-skin2;EQUIP
+skin2;OWN
+skin3;EQUIP
 platformSkin1;OWN
-platformSkin2;EQUIP
+platformSkin2;OWN
+platformSkin3;EQUIP
 backgroundSkin1;OWN
 backgroundSkin2;EQUIP
+backgroundSkin3;OWN
 selectWay;skins\background\backgroundSkin2\backgroundSkin2.png
