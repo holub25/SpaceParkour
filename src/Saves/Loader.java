@@ -20,7 +20,7 @@ public class Loader {
 
     public Loader(Menu menu, Player player, Shop shop, Frame frame) {
         try {
-            fr = new FileReader("Saves\\dataSave");
+            fr = new FileReader("Resources\\Saves\\dataSave");
             br = new BufferedReader(fr);
 
             fileReading(menu,player,shop,frame);

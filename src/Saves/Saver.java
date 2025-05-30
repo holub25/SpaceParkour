@@ -20,7 +20,7 @@ public class Saver {
 
     public Saver(Menu menu,Player player,Shop shop) {
         try {
-            this.fw = new FileWriter("Saves\\dataSave");
+            this.fw = new FileWriter("Resources\\Saves\\dataSave");
             this.bw = new BufferedWriter(fw);
 
             saveScore(menu);

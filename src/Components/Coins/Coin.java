@@ -50,7 +50,7 @@ public class Coin extends JLabel {
      * Sets the coin's image from a file
      */
     public void setCoinTexture(){
-        ImageIcon icon = new ImageIcon("skins\\coin\\coin.png");
+        ImageIcon icon = new ImageIcon(("Resources\\skins\\coin\\coin.png"));
         this.setIcon(icon);
     }
 }

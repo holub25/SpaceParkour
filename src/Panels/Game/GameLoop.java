@@ -11,14 +11,11 @@ public class GameLoop extends Thread{
     public GameLoop(GameLogic gameLogic) {
 
         this.running = false;
-
-        this.running = true;
-
         this.gameLogic = gameLogic;
     }
 
     /**
-     * The run method starts the loop that calls updateLogic..
+     * The run method starts the loop that calls updateLogic.
      */
     @Override
     public void run() {

@@ -27,7 +27,6 @@ public class Platform extends JLabel implements Comparable<Platform> {
         this.height = height;
         this.setVisible(true);
         this.setBounds(x,y,width,height);
-        //this.setBackground(Color.GREEN);
         this.setOpaque(false);
     }
 

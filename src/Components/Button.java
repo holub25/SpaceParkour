@@ -32,7 +32,7 @@ public class Button extends JButton {
      */
 
     public void setButtonsSkin(){
-        String way = "skins\\button\\"+size+"\\"+size+"Button";
+        String way = "Resources\\skins\\button\\"+size+"\\"+size+"Button";
         ImageIcon enebaleIcon = new ImageIcon(way+"Ene.png");
         ImageIcon pressIcon = new ImageIcon(way+"EnePress.png");
         ImageIcon disableIcon = new ImageIcon(way+"Dis.png");

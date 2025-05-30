@@ -6,7 +6,6 @@ import Panels.Restart;
 import Panels.Menu;
 import Audio.Audio;
 import Components.Background;
-import Components.Player.Player;
 import Saves.Loader;
 import Saves.Saver;
 
@@ -15,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 /**
  * Main application window for the Space Parkour game.
@@ -44,6 +42,7 @@ public class Frame extends JFrame {
         this.setBounds(40,40,width,height);
         this.setFocusable(true);
         this.setTitle("Space Parkour");
+        iconSet("Resources\\skins\\player\\skin2\\skin2.png");
         this.add(mainPanel);
         musicSettings();
         addPanels();
@@ -56,6 +55,17 @@ public class Frame extends JFrame {
         this.repaint();
         endFrame();
     }
+
+    /**
+     * Set icon of the frame
+     *
+     * @param image path of image
+     */
+    public void iconSet(String image){
+        Image icon = Toolkit.getDefaultToolkit().getImage(image);
+        this.setIconImage(icon);
+    }
+
 
     /**
      * Saves the current game state.
@@ -75,7 +85,7 @@ public class Frame extends JFrame {
      * Sets up and starts the main game music in a loop.
      */
     public void musicSettings(){
-        this.mainMusic = new Audio("Sounds//music.wav");
+        this.mainMusic = new Audio("Resources\\Sounds\\music.wav");
         this.mainMusic.setVolume(-15);
         this.mainMusic.loop();
     }

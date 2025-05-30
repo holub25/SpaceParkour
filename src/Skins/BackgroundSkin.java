@@ -20,8 +20,8 @@ public class BackgroundSkin extends ComponentSkin {
     private Frame frame;
     public BackgroundSkin(String name, int price, Type type, Shop shop, Frame frame) {
         super(name,price, type);
-        this.icon = new ImageIcon("skins\\background\\"+name+"\\"+name+".png");
-        this.way = "skins\\background\\"+name+"\\"+name+".png";
+        this.icon = new ImageIcon("Resources\\skins\\background\\"+name+"\\"+name+".png");
+        this.way = "Resources\\skins\\background\\"+name+"\\"+name+".png";
         this.shop = shop;
         this.frame = frame;
     }
