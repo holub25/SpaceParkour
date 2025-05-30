@@ -35,7 +35,7 @@ public class Platform extends JLabel implements Comparable<Platform> {
      */
     public void addTexture(){
         int randomNum = rd.nextInt(platformSkins.getPlatformSkins().size());
-        icon = new ImageIcon(platformSkins.getPlatformSkins().get(randomNum));
+        icon = new ImageIcon(getClass().getResource(platformSkins.getPlatformSkins().get(randomNum)));
         this.setIcon(icon);
     }
 

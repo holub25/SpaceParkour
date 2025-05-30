@@ -1,8 +1,10 @@
 package Audio;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *  * CLASS `Audio`
@@ -25,12 +27,13 @@ public class Audio {
      */
     public void loadAudio(String file){
         try {
-            File audiFile = new File(file);
-            if(!audiFile.exists()){
+            InputStream is = getClass().getResourceAsStream(file);
+            //File audiFile = new File(file);
+            if(is == null){
                 System.out.println("File do not exist");;
                 return;
             }
-            this.audio = AudioSystem.getAudioInputStream(audiFile);
+            this.audio = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
             this.clip = AudioSystem.getClip();
             clip.open(audio);
             loaded = true;

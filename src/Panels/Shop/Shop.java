@@ -101,7 +101,7 @@ public class Shop extends JPanel implements KeyListener {
      */
     public void addSkinsOnPanel(int x, int y, int width, int height, int round, SkinPanel panel, String name, String whichSkin){
         for(ComponentSkin playerSkin : panel.getSkins()){
-            panel.add(playerSkin.addShopIcon(x,y,width,height,"Resources\\skins\\"+whichSkin+"\\"+name+round+"\\"+name+round+"Shop.png"));
+            panel.add(playerSkin.addShopIcon(x,y,width,height,"/skins/"+whichSkin+"/"+name+round+"/"+name+round+"Shop.png"));
             round++;
             if(round==4){
                 y = 200;
@@ -115,9 +115,9 @@ public class Shop extends JPanel implements KeyListener {
      * Adds new skins to the shop
      */
     public void addSkins(){
-        playerSkinsPan.getSkins().add(new PlayerSkin("skin1","Resources\\skins\\player\\skin1\\skin1.png",0, Type.EQUIP,this));
-        playerSkinsPan.getSkins().add(new PlayerSkin("skin2","Resources\\skins\\player\\skin2\\skin2.png",5, Type.EXPENSIVE,this));
-        playerSkinsPan.getSkins().add(new PlayerSkin("skin3","Resources\\skins\\player\\skin3\\skin3.png",10,Type.EXPENSIVE,this));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin1","/skins/player/skin1/skin1.png",0, Type.EQUIP,this));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin2","/skins/player/skin2/skin2.png",5, Type.EXPENSIVE,this));
+        playerSkinsPan.getSkins().add(new PlayerSkin("skin3","/skins/player/skin3/skin3.png",10,Type.EXPENSIVE,this));
         platformSkinsPan.getSkins().add(new PlatformSkins("platformSkin1",0, Type.EQUIP,4,this));
         platformSkinsPan.getSkins().add(new PlatformSkins("platformSkin2",10, Type.EXPENSIVE,4,this));
         platformSkinsPan.getSkins().add(new PlatformSkins("platformSkin3",15,Type.EXPENSIVE,4,this));

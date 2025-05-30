@@ -42,7 +42,7 @@ public abstract class ComponentSkin {
         shopIcon.setBounds(x,y,width,height);
         shopIcon.setVisible(true);
         shopIcon.setBackground(Color.GREEN);
-        this.icon = new ImageIcon(image);
+        this.icon = new ImageIcon(getClass().getResource(image));
         setBackGround();
         shopIcon.setLayout(null);
         buyButton = new Components.Button("Buy",(width/2)-50,height-40,100,30,13,"small");

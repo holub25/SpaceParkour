@@ -85,7 +85,7 @@ public class Frame extends JFrame {
      * Sets up and starts the main game music in a loop.
      */
     public void musicSettings(){
-        this.mainMusic = new Audio("Resources\\Sounds\\music.wav");
+        this.mainMusic = new Audio("/Sounds/music.wav");
         this.mainMusic.setVolume(-15);
         this.mainMusic.loop();
     }
@@ -153,7 +153,7 @@ public class Frame extends JFrame {
      * @return JLabel with set background icon
      */
     public JLabel backgr(String image){
-        ImageIcon background = new ImageIcon(image);
+        ImageIcon background = new ImageIcon(getClass().getResource(image));
         JLabel label = new JLabel(background);
         label.setBounds(0,0,width,height);
         label.setVisible(true);

@@ -6,9 +6,7 @@ import Panels.Menu;
 import Panels.Shop.Shop;
 import Skins.Type;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Loader class is responsible for reading saved game data from a file
@@ -20,13 +18,14 @@ public class Loader {
 
     public Loader(Menu menu, Player player, Shop shop, Frame frame) {
         try {
-            fr = new FileReader("Resources\\Saves\\dataSave");
+            String saveWay = System.getProperty("user.home")+ File.separator+".SpaceParkour"+File.separator+"Saves";
+            //InputStream is = getClass().getResourceAsStream("/Saves/dataSave");
+            fr = new FileReader(saveWay);
             br = new BufferedReader(fr);
 
             fileReading(menu,player,shop,frame);
 
             br.close();
-            fr.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -30,7 +30,7 @@ public class PlayerSkin extends ComponentSkin {
         frameCounter = 0;
         frameDelay = 10;
         this.shop = shop;
-        this.mainSkin = new ImageIcon(way);
+        this.mainSkin = new ImageIcon(getClass().getResource(way));
         moveLeftSkins = new ArrayList<>();
         moveRightSkins = new ArrayList<>();
         addSkinsLeft(name);
@@ -85,7 +85,7 @@ public class PlayerSkin extends ComponentSkin {
      */
     public void addSkinsLeft(String name){
         for(int i = 0;i<3;i++){
-            moveLeftSkins.add(new ImageIcon("Resources\\skins\\player\\"+name+"\\"+name+"Left"+(i+1)+".png"));
+            moveLeftSkins.add(new ImageIcon(getClass().getResource("/skins/player/"+name+"/"+name+"Left"+(i+1)+".png")));
         }
     }
 
@@ -96,7 +96,7 @@ public class PlayerSkin extends ComponentSkin {
      */
     public void addSkinsRight(String name){
         for(int i = 0;i<3;i++){
-            moveRightSkins.add(new ImageIcon("Resources\\skins\\player\\"+name+"\\"+name+"Right"+(i+1)+".png"));
+            moveRightSkins.add(new ImageIcon(getClass().getResource("/skins/player/"+name+"/"+name+"Right"+(i+1)+".png")));
         }
     }
 

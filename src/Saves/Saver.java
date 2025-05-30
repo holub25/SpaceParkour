@@ -7,6 +7,7 @@ import Skins.BackgroundSkin;
 import Skins.Type;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -20,7 +21,10 @@ public class Saver {
 
     public Saver(Menu menu,Player player,Shop shop) {
         try {
-            this.fw = new FileWriter("Resources\\Saves\\dataSave");
+            String saveWay = System.getProperty("user.home")+ File.separator+".SpaceParkour"+File.separator+"Saves";
+            File saveFile = new File(saveWay);
+            saveFile.getParentFile().mkdirs();
+            this.fw = new FileWriter(saveFile);
             this.bw = new BufferedWriter(fw);
 
             saveScore(menu);

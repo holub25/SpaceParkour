@@ -64,7 +64,7 @@ public class PlatformSkins extends ComponentSkin {
      */
     public void addPlatformSkin(){
         for(int i = 1;i<lastNum;i++){
-            platformSkins.add("Resources\\skins\\platforms\\"+getName()+"\\"+getName()+"-"+i+".png");
+            platformSkins.add("/skins/platforms/"+getName()+"/"+getName()+"-"+i+".png");
         }
     }
 
