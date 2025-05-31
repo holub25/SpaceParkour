@@ -49,7 +49,7 @@ public class Loader {
      * @param player the player object
      * @param shop the shop panel
      * @param frame the main game frame
-     * @throws IOException if some error whil reading a file.
+     * @throws IOException if some error while reading a file.
      */
     public void fileReading(Menu menu,Player player,Shop shop,Frame frame) throws IOException {
         String line;
