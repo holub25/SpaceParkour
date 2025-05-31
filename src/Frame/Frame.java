@@ -150,7 +150,8 @@ public class Frame extends JFrame {
     /**
      * Creates a JLabel with background set from given image path.
      * I implemented this to handle data saving when running the application as a JAR file and was
-     * inspired by your use of getClass() and similar methods to properly load data from within the JAR.
+     * This uses getClass() and related methods to properly load data from within the JAR file when the application is packaged.
+     * Inspired by Chat GPT
      *
      * @param image path to the image
      * @return JLabel with set background icon
