@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 /**
  * Main application window for the Space Parkour game.
@@ -42,7 +43,7 @@ public class Frame extends JFrame {
         this.setBounds(40,40,width,height);
         this.setFocusable(true);
         this.setTitle("Space Parkour");
-        iconSet("Resources\\skins\\player\\skin2\\skin2.png");
+        iconSet("/skins/player/skin2/skin2.png");
         this.add(mainPanel);
         musicSettings();
         addPanels();
@@ -62,7 +63,7 @@ public class Frame extends JFrame {
      * @param image path of image
      */
     public void iconSet(String image){
-        Image icon = Toolkit.getDefaultToolkit().getImage(image);
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource(image));
         this.setIconImage(icon);
     }
 
@@ -153,7 +154,7 @@ public class Frame extends JFrame {
      * @return JLabel with set background icon
      */
     public JLabel backgr(String image){
-        ImageIcon background = new ImageIcon(getClass().getResource(image));
+        ImageIcon background = new ImageIcon(Objects.requireNonNull(getClass().getResource(image)));
         JLabel label = new JLabel(background);
         label.setBounds(0,0,width,height);
         label.setVisible(true);

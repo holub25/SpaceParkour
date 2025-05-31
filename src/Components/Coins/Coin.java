@@ -2,6 +2,7 @@ package Components.Coins;
 
 import javax.swing.*;
         import java.awt.*;
+import java.util.Objects;
 
 /**
  * Represents a coin that the player can collect. Extends from JLabel for GUI rendering.
@@ -50,7 +51,7 @@ public class Coin extends JLabel {
      * Sets the coin's image from a file
      */
     public void setCoinTexture(){
-        ImageIcon icon = new ImageIcon(("Resources\\skins\\coin\\coin.png"));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/skins/coin/coin.png")));
         this.setIcon(icon);
     }
 }

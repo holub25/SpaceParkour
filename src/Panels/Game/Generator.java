@@ -3,9 +3,9 @@ package Panels.Game;
 import Components.Platform;
 import Components.Score;
 import Frame.Frame;
-import Skins.ComponentSkin;
-import Skins.PlatformSkins;
-import Skins.Type;
+import Skins1.ComponentSkin;
+import Skins1.PlatformSkins;
+import Skins1.Type;
 
 import javax.swing.*;
 import java.util.ArrayList;

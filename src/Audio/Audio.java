@@ -27,13 +27,13 @@ public class Audio {
      */
     public void loadAudio(String file){
         try {
-            InputStream is = getClass().getResourceAsStream(file);
-            //File audiFile = new File(file);
-            if(is == null){
-                System.out.println("File do not exist");;
+            InputStream sound = getClass().getResourceAsStream(file);
+            if(sound==null){
+                System.out.println("File not found");
                 return;
             }
-            this.audio = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            InputStream bufferedIn = new BufferedInputStream(sound);
+            this.audio = AudioSystem.getAudioInputStream(bufferedIn);
             this.clip = AudioSystem.getClip();
             clip.open(audio);
             loaded = true;

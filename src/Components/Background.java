@@ -1,6 +1,6 @@
 package Components;
 
-import Skins.BackgroundSkin;
+import Skins1.BackgroundSkin;
 
 import javax.swing.*;
 import java.awt.*;

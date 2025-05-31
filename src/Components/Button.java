@@ -3,6 +3,7 @@ package Components;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Custom implementation of a button.
@@ -32,10 +33,10 @@ public class Button extends JButton {
      */
 
     public void setButtonsSkin(){
-        String way = "Resources\\skins\\button\\"+size+"\\"+size+"Button";
-        ImageIcon enebaleIcon = new ImageIcon(way+"Ene.png");
-        ImageIcon pressIcon = new ImageIcon(way+"EnePress.png");
-        ImageIcon disableIcon = new ImageIcon(way+"Dis.png");
+        String way = "/skins/button/"+size+"/"+size+"Button";
+        ImageIcon enebaleIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(way + "Ene.png")));
+        ImageIcon pressIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(way + "EnePress.png")));
+        ImageIcon disableIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(way + "Dis.png")));
         this.setIcon(enebaleIcon);
         this.setPressedIcon(pressIcon);
         this.setDisabledIcon(disableIcon);

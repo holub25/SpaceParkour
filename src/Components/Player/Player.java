@@ -5,7 +5,7 @@ import Components.Coins.CoinCounter;
 import Components.Coins.CoinGenerator;
 import Components.Platform;
 import Panels.Game.Game;
-import Skins.PlayerSkin;
+import Skins1.PlayerSkin;
 
 
 import javax.swing.*;

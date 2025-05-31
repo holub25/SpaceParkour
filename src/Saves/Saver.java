@@ -3,8 +3,8 @@ package Saves;
 import Components.Player.Player;
 import Panels.Menu;
 import Panels.Shop.Shop;
-import Skins.BackgroundSkin;
-import Skins.Type;
+import Skins1.BackgroundSkin;
+import Skins1.Type;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,9 +21,15 @@ public class Saver {
 
     public Saver(Menu menu,Player player,Shop shop) {
         try {
-            String saveWay = System.getProperty("user.home")+ File.separator+".SpaceParkour"+File.separator+"Saves";
-            File saveFile = new File(saveWay);
-            saveFile.getParentFile().mkdirs();
+            String userHome = System.getProperty("user.home");
+            File saveDir = new File(userHome+File.separator+"SpaceParkour"+File.separator+"Saves");
+            if(!saveDir.exists()){
+                saveDir.mkdirs();
+            }
+            File saveFile = new File(saveDir, "dataSave.txt");
+            if (!saveFile.exists()) {
+                saveFile.createNewFile();
+            }
             this.fw = new FileWriter(saveFile);
             this.bw = new BufferedWriter(fw);
 

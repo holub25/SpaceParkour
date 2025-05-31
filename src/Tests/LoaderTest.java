@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import Panels.Game.Game;
 import Panels.Menu;
 import Panels.Shop.Shop;
-import Skins.Type;
+import Skins1.Type;
 import Frame.Frame;
 import Saves.Loader;
 

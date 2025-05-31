@@ -1,9 +1,9 @@
 package Components;
 
-import Skins.PlatformSkins;
+import Skins1.PlatformSkins;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -35,7 +35,7 @@ public class Platform extends JLabel implements Comparable<Platform> {
      */
     public void addTexture(){
         int randomNum = rd.nextInt(platformSkins.getPlatformSkins().size());
-        icon = new ImageIcon(getClass().getResource(platformSkins.getPlatformSkins().get(randomNum)));
+        icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(platformSkins.getPlatformSkins().get(randomNum))));
         this.setIcon(icon);
     }
 

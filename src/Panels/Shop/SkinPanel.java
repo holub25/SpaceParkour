@@ -1,12 +1,9 @@
 package Panels.Shop;
 
-import Skins.ComponentSkin;
-import Frame.Frame;
+import Skins1.ComponentSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
