@@ -95,7 +95,7 @@ public class Restart extends JPanel {
         newGame.getPlayer().getCoinCounter().setCoinsCount(lastMoney);
         frame.setGame(newGame);
         frame.getShop().updatePlayerReferences(newGame.getPlayer());
-        System.out.println(newGame.getPlayer().getCoinCounter().getCoinsCount()+"PPP");
+        //System.out.println(newGame.getPlayer().getCoinCounter().getCoinsCount()+"PPP");
         frame.getMainPanel().add(newGame, "game");
         frame.getShop().equipSkins(newGame);
         frame.getShop().equipPlatformSkins(newGame);

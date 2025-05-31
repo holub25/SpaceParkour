@@ -61,26 +61,20 @@ public abstract class ComponentSkin {
      */
     public void typeSet(int coins){
         if(type == Type.EQUIP || type == Type.OWN){
-            System.out.println("U4");
             if(type == Type.EQUIP){
-                System.out.println("U5");
                 buyButton.setEnabled(false);
                 buyButton.setText("EQUIPED");
             }else if(type == Type.OWN){
-                System.out.println("U6");
                 buyButton.setEnabled(true);
                 buyButton.setText("EQUIP");
             }
 
         }else {
-            System.out.println("U1");
             if(price>coins){
-                System.out.println("U2");
                 type = Type.EXPENSIVE;
                 buyButton.setEnabled(false);
                 buyButton.setText("BUY "+price);
             }else {
-                System.out.println("U3");
                 type = Type.BUY;
                 buyButton.setEnabled(true);
                 buyButton.setText("BUY "+price);

@@ -58,7 +58,6 @@ public class Generator {
             if(skin instanceof PlatformSkins platformSkins){
                 if(platformSkins.getType() == Type.EQUIP){
                     this.platformSkins = platformSkins;
-                    System.out.println("DONE");
                 }
             }
         }
