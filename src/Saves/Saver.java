@@ -19,6 +19,17 @@ public class Saver {
     private FileWriter fw;
     private BufferedWriter bw;
 
+    /**
+     * The constructor of the Saver class is used to save game data to the "dataSave.txt" file,
+     * located in the "Saves" folder within the user's home directory.
+     * If the folder or file doesn't exist, they are created automatically.
+     * The design was inspired by ChatGPT, specifically the use of File saveDir and File saveFile.
+     * I implemented this to handle data saving when running the application as a JAR file.
+     *
+     * @param menu Reference to the main menu
+     * @param player Reference to the player object
+     * @param shop Reference to the shop
+     */
     public Saver(Menu menu,Player player,Shop shop) {
         try {
             String userHome = System.getProperty("user.home");

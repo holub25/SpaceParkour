@@ -19,6 +19,18 @@ public class Loader {
     private FileReader fr;
     private BufferedReader br;
 
+    /**
+     * The constructor of the Loader class loads saved data from the "dataSave.txt" file,
+     * which is located in the "Saves" directory within the user's home folder.
+     * If the directory or file doesn't exist, it creates them.
+     * The implementation was inspired by ChatGPT's design, especially the use of File saveDir and File saveFile.
+     * I implemented this to handle data saving when running the application as a JAR file.
+     *
+     * @param menu Reference to the main menu
+     * @param player Reference to the player object
+     * @param shop Reference to the shop
+     * @param frame Reference to the main game window
+     */
     public Loader(Menu menu, Player player, Shop shop, Frame frame) {
         try {
             String userHome = System.getProperty("user.home");
