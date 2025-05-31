@@ -47,7 +47,6 @@ public class PlatformSkins extends ComponentSkin {
                     player.getCoinCounter().setCoinsCount(player.getCoinCounter().getCoinsCount()-getPrice());
                     shop.updateCoinText(player.getCoinCounter().getCoinsCount());
                     setType(Type.OWN);
-
                 }
                 shop.updateButtons(player);
                 shop.requestFocusInWindow();

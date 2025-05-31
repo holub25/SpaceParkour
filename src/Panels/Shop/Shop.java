@@ -280,6 +280,7 @@ public class Shop extends JPanel implements KeyListener {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             cardLayout.show(shopPanel,name);
+                            updateButtons(getFrame().getGame().getPlayer());
                             shopRequestFocus();
                         }
                     });
@@ -287,6 +288,11 @@ public class Shop extends JPanel implements KeyListener {
             }
         }
     }
+
+    public Frame getFrame() {
+        return frame;
+    }
+
     public void shopRequestFocus(){
         this.requestFocusInWindow();
     }
